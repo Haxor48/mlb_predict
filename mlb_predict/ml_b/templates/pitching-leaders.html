@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Artificial Scout</title>
+        <style>
+            .top {
+                margin-left: 570px;
+            }
+            .top:hover {
+                cursor: pointer;
+            }
+            .title {
+                color: #00b4ff;
+                font-family: Tahoma, sans-serif;
+                font-size: 40px;
+            }
+            .title-img {
+                float: left;
+                margin-right: 10px;
+            }
+            .top-buttons .top-button {
+                background-color: #00b4ff;
+                background: #00b4ff;
+                color: white;
+                border: none;
+                padding: 15px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 25px;
+                float: left;
+                cursor: pointer;
+                transition-duration: 0.4s;
+                font-family: Tahoma, sans-serif;
+                margin-bottom: 20px;
+            }
+            .top-button:hover {
+                background-color: black;
+            }
+            .league-text {
+                font-family: Tahoma, sans-serif;
+                color: black;
+                font-size: 40px;
+            }
+            .league {
+                clear:both; 
+                margin-left: 530px;
+            }
+            .table {
+                border-collapse: collapse;
+                font-family: Tahoma, sans-serif;
+                font-size: 20px;
+                clear: both;
+                text-align: left;
+            }
+            .table-img {
+                float: left;
+                margin-right: 10px;
+                margin-left: 150px;
+            }
+            .table-top {
+                background-color: #00b4ff;
+                color: white;
+                text-align: center;
+            }
+            td, th {
+                border: 1px solid black;
+            }
+            th {
+                width: 520px;
+            }
+            .big-buttons .big-button {
+                background-color: black;
+                background: black;
+                color: white;
+                border: none;
+                padding: 20px 40px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 35px;
+                float: left;
+                cursor: pointer;
+                transition-duration: 0.4s;
+                font-family: Tahoma, sans-serif;
+                margin-bottom: 20px;
+            }
+            .big-button:hover {
+                background-color: #00b4ff;
+            }
+            .table {
+                border-collapse: collapse;
+                font-family: Georgia, serif;
+                clear: both;
+                text-align: left;
+                width: 1530px;
+            }
+            td, th {
+                border: 1px solid black;
+            }
+            .division-text {
+                font-style: Tahoma, sans-serif;
+                color: black;
+                font-size: 30px;
+            }
+            .top-row {
+                background-color: #00b4ff;
+                color: white;
+            }
+            .title-text {
+                font-style: Tahoma, sans-serif;
+                color: black;
+                margin-left: 650px;
+                font-size: 40px;
+                clear: both;
+            }
+            .table-button {
+                border: none;
+                background: white;
+                font-family: Georgia, serif;
+            }
+            .table-button:hover {
+                cursor: pointer;
+            }
+            .table-top-button {
+                border: none;
+                background-color: #00b4ff;
+                color: white;
+                font-family: Georgia, serif;
+            }
+            .table-top-button:hover {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="top" id='top' onclick="change_page('')">
+            <img src="https://imgur.com/4TJ14y1.png" alt="Artificial Scout's Logo" width ='100' height="50" class='title-img'/>
+            <h1 class="title">Artificial Scout</h1>
+        </div>
+        <div class="top-buttons">
+            <button class="top-button" style="margin-left:450px; clear:both;"
+            onclick="change_page('players')">Players</button>
+            <button class="top-button" id='teams-button'
+            onclick="change_page('teams')">Teams</button>
+            <button class="top-button" id='leaders-button'
+            onclick="change_page('leaders')">Leaders</button>
+            <button class="top-button" id='standings-button'
+            onclick="change_page('standings')">Standings</button>
+            <button class="top-button" id='salary-button'
+            onclick="change_page('salaries')">Salary Projector</button>
+        </div>
+        <br>
+        <div class="big-buttons">
+            <button class="big-button" style="margin-left:425px; clear:both;"
+            onclick="change_page('leaders/hitting')">Hitting</button>
+            <button class="big-button"
+            onclick="change_page('leaders/pitching')">Pitching</button>
+            <button class="big-button"
+            onclick="change_page('leaders/fielding')">Fielding/Running</button>
+        </div>
+        <h1 class="title-text">Pitching Leaders</h1>
+        <h1 class="division-text" style="margin-left: 675px;">Standard Pitching</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent1' onclick='percentile(1);'>Percentiles
+        <input type='checkbox' id='ascend1'onclick='ascending(1);'>Ascending
+        <input type='number' id='start1'>
+         to <input type='number' id='end1'>
+        <button onclick='set_start_end(1);'>Submit</button>
+        <table class="table">
+            <tr class="top-row">
+                <th><button class='table-top-button' onclick="sortBy(1, 'Name');">Name</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'Team');">Team</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'G');">G</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'GS');">GS</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'IP');">IP</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'W');">W</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'L');">L</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'CG');">CG</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'SV');">SV</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'BS');">BS</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'ER');">ER</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'H');">H</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'BB');">BB</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'SO');">SO</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'ERA');">ERA</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'WHIP');">WHIP</button></th>
+            </tr>
+            {% for x in basic_pitching %}
+            <tr>
+                <th><button class='table-button' onclick = 'load_player("{{x.Name}}");'>{{x.Name}}</button></th>
+                <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.G}}</th>
+                <th>{{x.GS}}</th>
+                <th>{{x.IP}}</th>
+                <th>{{x.W}}</th>
+                <th>{{x.L}}</th>
+                <th>{{x.CG}}</th>
+                <th>{{x.SV}}</th>
+                <th>{{x.BS}}</th>
+                <th>{{x.ER}}</th>
+                <th>{{x.H}}</th>
+                <th>{{x.BB}}</th>
+                <th>{{x.SO}}</th>
+                <th>{{x.ERA}}</th>
+                <th>{{x.WHIP}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 675px;">Advanced Pitching</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent2' onclick='percentile(2);'>Percentiles
+        <input type='checkbox' id='ascend2'onclick='ascending(2);'>Ascending
+        <input type='number' id='start2'>
+         to <input type='number' id='end2'>
+        <button onclick='set_start_end(2);'>Submit</button>
+        <table class="table">
+            <tr class="top-row">
+                <th><button class='table-top-button' onclick="sortBy(2, 'Name');">Name</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'Team');">Team</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'G');">G</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'IP');">IP</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'K/9');">K/9</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'BB/9');">BB/9</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'HR/9');">HR/9</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'K/BB');">K/BB</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'AVG');">AVG</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'Clutch');">Clutch</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'BABIP');">BABIP</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'LOB%');">LOB%</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'WHIP');">WHIP</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'ERA');">ERA</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'RS/9');">RS/9</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'FIP');">FIP</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'xFIP');">xFIP</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'SIERA');">SIERA</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'WAR');">fWAR</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'bWAR');">bWAR</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'aWAR');">aWAR</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'WPA');">WPA</button></th>
+            </tr>
+            {% for x in advanced_pitching %}
+            <tr>
+                <th><button class='table-button' onclick = 'load_player("{{x.Name}}");'>{{x.Name}}</button></th>
+                <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.G}}</th>
+                <th>{{x.IP}}</th>
+                <th>{{x.K9}}</th>
+                <th>{{x.BB9}}</th>
+                <th>{{x.HR9}}</th>
+                <th>{{x.KBB}}</th>
+                <th>{{x.AVG}}</th>
+                <th>{{x.Clutch}}</th>
+                <th>{{x.BABIP}}</th>
+                <th>{{x.LOB}}</th>
+                <th>{{x.WHIP}}</th>
+                <th>{{x.ERA}}</th>
+                <th>{{x.RS9}}</th>
+                <th>{{x.FIP}}</th>
+                <th>{{x.xFIP}}</th>
+                <th>{{x.SIERA}}</th>
+                <th>{{x.fWAR}}</th>
+                <th>{{x.bWAR}}</th>
+                <th>{{x.aWAR}}</th>
+                <th>{{x.WPA}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 675px;">Statcast Pitching</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent3' onclick='percentile(3);'>Percentiles
+        <input type='checkbox' id='ascend3'onclick='ascending(3);'>Ascending
+        <input type='number' id='start3'>
+         to <input type='number' id='end3'>
+        <button onclick='set_start_end(3);'>Submit</button>
+        <table class="table">
+            <tr class="top-row">
+                <th><button class='table-top-button' onclick="sortBy(3, 'Name');">Name</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'Team');">Team</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'G');">G</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'IP');">IP</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'HardHit%');">Hard Hit%</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'Barrel%');">Barrel%</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'K%');">K%</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'BB%');">BB%</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'LD%');">LD%</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'GB%');">GB%</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'FB%');">FB%</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'K/BB');">K/BB</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'GB/FB');">GB/FB</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'HR/FB');">HR/FB</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'Soft%');">Soft%</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'Med%');">Med%</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'EV');">Avg Exit Velo</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'maxEV');">Max Exit Velo</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'NumPitches');"># Pitches</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'MaxVelo');">Max Avg Velo</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'AvrSpin');">AVG Spin Rate</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'est_ba');">xBA</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'est_slg');">xSLG</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'est_woba');">xWOBA</button></th>
+                <th><button class='table-top-button' onclick="sortBy(3, 'xERA');">xERA</button></th>
+            </tr>
+            {% for x in statcast_pitching %}
+            <tr>
+                <th><button class='table-button' onclick = 'load_player("{{x.Name}}");'>{{x.Name}}</button></th>
+                <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.G}}</th>
+                <th>{{x.IP}}</th>
+                <th>{{x.HardHit}}</th>
+                <th>{{x.Barrel}}</th>
+                <th>{{x.K}}</th>
+                <th>{{x.BB}}</th>
+                <th>{{x.LD}}</th>
+                <th>{{x.GB}}</th>
+                <th>{{x.FB}}</th>
+                <th>{{x.KBB}}</th>
+                <th>{{x.GBFB}}</th>
+                <th>{{x.HRFB}}</th>
+                <th>{{x.Soft}}</th>
+                <th>{{x.Med}}</th>
+                <th>{{x.AvrEV}}</th>
+                <th>{{x.MaxEV}}</th>
+                <th>{{x.NumPitches}}</th>
+                <th>{{x.MaxVelo}}</th>
+                <th>{{x.AvgSpin}}</th>
+                <th>{{x.xBA}}</th>
+                <th>{{x.xSLG}}</th>
+                <th>{{x.xwOBA}}</th>
+                <th>{{x.xERA}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 675px;">Projected Pitching</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent4' onclick='percentile(4);'>Percentiles
+        <input type='checkbox' id='ascend4'onclick='ascending(4);'>Ascending
+        <input type='number' id='start4'>
+         to <input type='number' id='end4'>
+        <button onclick='set_start_end(4);'>Submit</button>
+        <table class="table">
+            <tr class="top-row">
+                <th><button class='table-top-button' onclick="sortBy(4, 'Name');">Name</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'Team');">Team</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'G');">G</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'GS');">GS</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'IP');">IP</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'SO');">K</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'BB');">BB</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'K/9');">K/9</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'BB/9');">BB/9</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'HR/9');">HR/9</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'K/BB');">K/BB</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'AVG');">AVG</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'WHIP');">WHIP</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'RS/9');">RS/9</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'ERA');">ERA</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'FIP');">FIP</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'xFIP');">xFIP</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'SIERA');">SIERA</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'WAR');">fWAR</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'bWAR');">bWAR</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'aWAR');">aWAR</button></th>
+                <th><button class='table-top-button' onclick="sortBy(4, 'WPA');">WPA</button></th>
+            </tr>
+            {% for x in projected_pitching%}
+                <tr>
+                    <th><button class='table-button' onclick = 'load_player("{{x.Name}}");'>{{x.Name}}</button></th>
+                    <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                    <th>{{x.G}}</th>
+                    <th>{{x.GS}}</th>
+                    <th>{{x.IP}}</th>
+                    <th>{{x.K}}</th>
+                    <th>{{x.BB}}</th>
+                    <th>{{x.K9}}</th>
+                    <th>{{x.BB9}}</th>
+                    <th>{{x.HR9}}</th>
+                    <th>{{x.KBB}}</th>
+                    <th>{{x.AVG}}</th>
+                    <th>{{x.WHIP}}</th>
+                    <th>{{x.RS9}}</th>
+                    <th>{{x.ERA}}</th>
+                    <th>{{x.FIP}}</th>
+                    <th>{{x.xFIP}}</th>
+                    <th>{{x.SIERA}}</th>
+                    <th>{{x.fWAR}}</th>
+                    <th>{{x.bWAR}}</th>
+                    <th>{{x.aWAR}}</th>
+                    <th>{{x.WPA}}</th>
+                </tr>
+            {% endfor %}
+        </table>
+        <script>
+            var base_url = window.location.href.split('leaders')[0];
+
+            function to_bool(text) {
+                return text.includes('t');
+            }
+
+            if (window.location.href.includes('basic')) {
+                var split = window.location.href.split('leaders/pitching/?')[1].split('?');
+                for (var i = 0; i < 4; i++) {
+                    document.getElementById('percent' + (i+1)).checked = to_bool(split[i].split(',')[4]);
+                    document.getElementById('ascend' + (i+1)).checked = to_bool(split[i].split(',')[3]);
+                }
+            }
+
+            function load_player(name) {
+                window.location.href = base_url + 'players/player/?' + name.replace(' ', '+');
+            }
+
+            function load_team_abbr(team) {
+                window.location.href = base_url + 'teams/team/?' + team;
+            }
+            
+            function change_page(new_page) {
+                window.location.href = base_url + new_page;
+            }
+
+            function set_start_end(type) {
+                var url = window.location.href;
+                var output = url.split('leaders')[0] + 'leaders/pitching/';
+                var split = [];
+                var hit = [];
+                var pitch = [];
+                var field = [];
+                var proj = [];
+                if (document.getElementById('start' + type).value == null || document.getElementById('end' + type).value == null) {
+                    return;
+                }
+                var start = document.getElementById('start' + type).value;
+                var end = document.getElementById('end' + type).value;
+                if (url.includes('basic')) {
+                    split = url.split('leaders/pitching/?')[1].split('?');
+                }
+                else {
+                    split = ['basic=W,0,10,f,f', 'advanced=aWAR,0,10,f,f', 'statcast=AvrSpin,0,10,f,f', 'projected=aWAR,0,10,f,f'];
+                }
+                hit = split[0].split('=')[1].split(',');
+                pitch = split[1].split('=')[1].split(',');
+                field = split[2].split('=')[1].split(',');
+                proj = split[3].split('=')[1].split(',');
+                if (type == 1) {
+                    output = '?basic=' + hit[0] + ',' + start + ',' + end + ',' + hit[3] + ',' + hit[4];
+                    output += '?' + split[1] + '?' + split[2] + '?' + split[3];
+                }
+                else if (type == 2) {
+                    output = '?' + split[0];
+                    output += '?advanced=' + pitch[0] + ',' + start + ',' + end + ',' + pitch[3] + ',' + pitch[4];
+                    output += '?' + split[2] + '?' + split[3];
+                }
+                else if (type == 3) {
+                    output = '?' + split[0] + '?' + split[1];
+                    output += '?statcast=' + field[0] + ',' + start + ',' + end + ',' + field[3] + ',' + field[4];
+                    output += '?' + split[3];
+                }
+                else {
+                    output = '?' + split[0] + '?' + split[1] + '?' + split[2];
+                    output += '?projected=' + proj[0] + ',' + start + ',' + end + ',' + proj[3] + ',' + proj[4];
+                }
+                window.location.href = output;
+            }
+
+            function ascending(type) {
+                var url = window.location.href;
+                var output = url.split('leaders')[0] + 'leaders/pitching/';
+                var split = [];
+                var hit = [];
+                var pitch = [];
+                var field = [];
+                var proj = [];
+                var isAscend = document.getElementById('ascend' + type).checked;
+                if (url.includes('basic')) {
+                    split = url.split('leaders/pitching/?')[1].split('?');
+                }
+                else {
+                    split = ['basic=W,0,10,f,f', 'advanced=aWAR,0,10,f,f', 'statcast=AvrSpin,0,10,f,f', 'projected=aWAR,0,10,f,f'];
+                }
+                hit = split[0].split('=')[1].split(',');
+                pitch = split[1].split('=')[1].split(',');
+                field = split[2].split('=')[1].split(',');
+                proj = split[3].split('=')[1].split(',');
+                if (type == 1) {
+                    output = '?basic=' + hit[0] + ',' + hit[1] + ',' + hit[2] + ',' + isAscend + ',' + hit[4];
+                    output += '?' + split[1] + '?' + split[2] + '?' + split[3];
+                }
+                else if (type == 2) {
+                    output = '?' + split[0];
+                    output += '?advanced=' + pitch[0] + ',' + pitch[1] + ',' + pitch[2] + ',' + isAscend + ',' + pitch[4];
+                    output += '?' + split[2] + '?' + split[3];
+                }
+                else if (type == 3) {
+                    output = '?' + split[0] + '?' + split[1];
+                    output += '?statcast=' + field[0] + ',' + field[1] + ',' + field[2] + ',' + isAscend + ',' + field[4];
+                    output += '?' + split[3];
+                }
+                else {
+                    output = '?' + split[0] + '?' + split[1] + '?' + split[2];
+                    output += '?projected=' + proj[0] + ',' + proj[1] + ',' + proj[2] + ',' + isAscend + ',' + proj[4];
+                }
+                window.location.href = output;
+            }
+
+            function percentile(type) {
+                var url = window.location.href;
+                var output = url.split('leaders')[0] + 'leaders/pitching/';
+                var split = [];
+                var hit = [];
+                var pitch = [];
+                var field = [];
+                var proj = [];
+                var isPercentile = document.getElementById('percent' + type).checked;
+                if (url.includes('basic')) {
+                    split = url.split('leaders/pitching/?')[1].split('?');
+                }
+                else {
+                    split = ['basic=W,0,10,f,f', 'advanced=aWAR,0,10,f,f', 'statcast=AvrSpin,0,10,f,f', 'projected=aWAR,0,10,f,f'];
+                }
+                hit = split[0].split('=')[1].split(',');
+                pitch = split[1].split('=')[1].split(',');
+                field = split[2].split('=')[1].split(',');
+                proj = split[3].split('=')[1].split(',');
+                if (type == 1) {
+                    output = '?basic=' + hit[0] + ',' + hit[1] + ',' + hit[2] + ',' + hit[3] + ',' + isPercentile;
+                    output += '?' + split[1] + '?' + split[2] + '?' + split[3];
+                }
+                else if (type == 2) {
+                    output = '?' + split[0];
+                    output += '?advanced=' + pitch[0] + ',' + pitch[1] + ',' + pitch[2] + ',' + pitch[3] + ',' + isPercentile;
+                    output += '?' + split[2] + '?' + split[3];
+                }
+                else if (type == 3) {
+                    output = '?' + split[0] + '?' + split[1];
+                    output += '?statcast=' + field[0] + ',' + field[1] + ',' + field[2] + ',' + field[3] + ',' + isPercentile;
+                    output += '?' + split[3];
+                }
+                else {
+                    output = '?' + split[0] + '?' + split[1] + '?' + split[2];
+                    output += '?projected=' + proj[0] + ',' + proj[1] + ',' + proj[2] + ',' + proj[3] + ',' + isPercentile;
+                }
+                window.location.href = output;
+            }
+    
+            function sortBy(type, val) {
+                var url = window.location.href;
+                var output = url.split('leaders')[0] + 'leaders/pitching/';
+                var split = [];
+                var hit = [];
+                var pitch = [];
+                var field = [];
+                var proj = [];
+                if (url.includes('basic')) {
+                    split = url.split('leaders/pitching/?')[1].split('?');
+                }
+                else {
+                    split = ['basic=W,0,10,f,f', 'advanced=aWAR,0,10,f,f', 'statcast=AvrSpin,0,10,f,f', 'projected=aWAR,0,10,f,f'];
+                }
+                hit = split[0].split('=')[1].split(',');
+                pitch = split[1].split('=')[1].split(',');
+                field = split[2].split('=')[1].split(',');
+                proj = split[3].split('=')[1].split(',');
+                if (type == 1) {
+                    output = '?basic=' + val + ',' + hit[1] + ',' + hit[2] + ',' + hit[3] + ',' + hit[4];
+                    output += '?' + split[1] + '?' + split[2] + '?' + split[3];
+                }
+                else if (type == 2) {
+                    output = '?' + split[0];
+                    output += '?advanced=' + val + ',' + pitch[1] + ',' + pitch[2] + ',' + pitch[3] + ',' + pitch[4];
+                    output += '?' + split[2] + '?' + split[3];
+                }
+                else if (type == 3) {
+                    output = '?' + split[0] + '?' + split[1];
+                    output += '?statcast=' + val + ',' + field[1] + ',' + field[2] + ',' + field[3] + ',' + field[4];
+                    output += '?' + split[3];
+                }
+                else {
+                    output = '?' + split[0] + '?' + split[1] + '?' + split[2];
+                    output += '?projected=' + val + ',' + proj[1] + ',' + proj[2] + ',' + proj[3] + ',' + proj[4];
+                }
+                window.location.href = output;
+            }
+        </script>
+    </body>
+</html>

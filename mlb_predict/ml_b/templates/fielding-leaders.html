@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Artificial Scout</title>
+        <style>
+            .top {
+                margin-left: 570px;
+            }
+            .top:hover {
+                cursor: pointer;
+            }
+            .title {
+                color: #00b4ff;
+                font-family: Tahoma, sans-serif;
+                font-size: 40px;
+            }
+            .title-img {
+                float: left;
+                margin-right: 10px;
+            }
+            .top-buttons .top-button {
+                background-color: #00b4ff;
+                background: #00b4ff;
+                color: white;
+                border: none;
+                padding: 15px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 25px;
+                float: left;
+                cursor: pointer;
+                transition-duration: 0.4s;
+                font-family: Tahoma, sans-serif;
+                margin-bottom: 20px;
+            }
+            .top-button:hover {
+                background-color: black;
+            }
+            .league-text {
+                font-family: Tahoma, sans-serif;
+                color: black;
+                font-size: 40px;
+            }
+            .league {
+                clear:both; 
+                margin-left: 530px;
+            }
+            .table {
+                border-collapse: collapse;
+                font-family: Tahoma, sans-serif;
+                font-size: 20px;
+                clear: both;
+                text-align: left;
+            }
+            .table-img {
+                float: left;
+                margin-right: 10px;
+                margin-left: 150px;
+            }
+            .table-top {
+                background-color: #00b4ff;
+                color: white;
+                text-align: center;
+            }
+            td, th {
+                border: 1px solid black;
+            }
+            th {
+                width: 520px;
+            }
+            .big-buttons .big-button {
+                background-color: black;
+                background: black;
+                color: white;
+                border: none;
+                padding: 20px 40px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 35px;
+                float: left;
+                cursor: pointer;
+                transition-duration: 0.4s;
+                font-family: Tahoma, sans-serif;
+                margin-bottom: 20px;
+            }
+            .big-button:hover {
+                background-color: #00b4ff;
+            }
+            .table {
+                border-collapse: collapse;
+                font-family: Georgia, serif;
+                clear: both;
+                text-align: left;
+                width: 1530px;
+            }
+            td, th {
+                border: 1px solid black;
+            }
+            .division-text {
+                font-style: Tahoma, sans-serif;
+                color: black;
+                font-size: 30px;
+            }
+            .top-row {
+                background-color: #00b4ff;
+                color: white;
+            }
+            .title-text {
+                font-style: Tahoma, sans-serif;
+                color: black;
+                margin-left: 560px;
+                font-size: 40px;
+                clear: both;
+            }
+            .table-button {
+                border: none;
+                background: white;
+                font-family: Georgia, serif;
+            }
+            .table-button:hover {
+                cursor: pointer;
+            }
+            .table-top-button {
+                border: none;
+                background-color: #00b4ff;
+                color: white;
+                font-family: Georgia, serif;
+            }
+            .table-top-button:hover {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="top" id='top' onclick="change_page('')">
+            <img src="https://imgur.com/4TJ14y1.png" alt="Artificial Scout's Logo" width ='100' height="50" class='title-img'/>
+            <h1 class="title">Artificial Scout</h1>
+        </div>
+        <div class="top-buttons">
+            <button class="top-button" style="margin-left:450px; clear:both;"
+            onclick="change_page('players')">Players</button>
+            <button class="top-button" id='teams-button'
+            onclick="change_page('teams')">Teams</button>
+            <button class="top-button" id='leaders-button'
+            onclick="change_page('leaders')">Leaders</button>
+            <button class="top-button" id='standings-button'
+            onclick="change_page('standings')">Standings</button>
+            <button class="top-button" id='salary-button'
+            onclick="change_page('salaries')">Salary Projector</button>
+        </div>
+        <br>
+        <div class="big-buttons">
+            <button class="big-button" style="margin-left:425px; clear:both;"
+            onclick="change_page('leaders/hitting')">Hitting</button>
+            <button class="big-button"
+            onclick="change_page('leaders/pitching')">Pitching</button>
+            <button class="big-button"
+            onclick="change_page('leaders/fielding')">Fielding/Running</button>
+        </div>
+        <h1 class="title-text">Fielding/Running Leaders</h1>
+        <h1 class="division-text" style="margin-left: 600px;">Standard Fielding/Running</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent1' onclick='percentile(1);'>Percentiles
+        <input type='checkbox' id='ascend1'onclick='ascending(1);'>Ascending
+        <input type='number' id='start1'>
+         to <input type='number' id='end1'>
+        <button onclick='set_start_end(1);'>Submit</button>
+        <table class="table">
+            <tr class="top-row">
+                <th><button class='table-top-button' onclick="sortBy(1, 'Name');">Name</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'Team');">Team</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'Pos');">Pos</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'G');">G</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'GS');">GS</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'IP');">IP</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'PO');">PO</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'A');">A</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'DP');">DP</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'E');">E</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'ARM');">ARM</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'UZR');">UZR</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'DRS');">DRS</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'OAA');">OAA</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'FRM');">FRM</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'Def');">Defensive Runs</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'R');">R</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'BRSB');">SB</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'BRCS');">CS</button></th>
+                <th><button class='table-top-button' onclick="sortBy(1, 'BsR');">BsR</button></th>
+            </tr>
+            {% for x in fielding_leaders_basic%}
+                <tr>
+                    <th><button class='table-button' onclick = 'load_player("{{x.Name}}");'>{{x.Name}}</button></th>
+                    <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                    <th>{{x.Pos}}</th>
+                    <th>{{x.G}}</th>
+                    <th>{{x.GS}}</th>
+                    <th>{{x.IP}}</th>
+                    <th>{{x.PO}}</th>
+                    <th>{{x.A}}</th>
+                    <th>{{x.DP}}</th>
+                    <th>{{x.E}}</th>
+                    <th>{{x.ARM}}</th>
+                    <th>{{x.UZR}}</th>
+                    <th>{{x.DRS}}</th>
+                    <th>{{x.OAA}}</th>
+                    <th>{{x.FRM}}</th>
+                    <th>{{x.DEF}}</th>
+                    <th>{{x.R}}</th>
+                    <th>{{x.SB}}</th>
+                    <th>{{x.CS}}</th>
+                    <th>{{x.BsR}}</th>
+                </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 600px;">Statcast Fielding/Running</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent2' onclick='percentile(2);'>Percentiles
+        <input type='checkbox' id='ascend2'onclick='ascending(2);'>Ascending
+        <input type='number' id='start2'>
+         to <input type='number' id='end2'>
+        <button onclick='set_start_end(2);'>Submit</button>
+        <table class="table">
+            <tr class="top-row">
+                <th><button class='table-top-button' onclick="sortBy(2, 'first_name');">Name</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'team');">Team</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'primary_pos_formatted');">Pos</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'outs_above_average_x');">OAA</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'outs_above_average_infront');">OAA In</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'outs_above_average_lateral_toward3bline');">OAA Lateral 3B</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'outs_above_average_lateral_toward1bline');">OAA Lateral 1B</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'outs_above_average_behind');">OAA Back</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'actual_success_rate_formatted');">OAA Success Rate</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'adj_estimated_success_rate');">Estimated OAA Success Rate</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'fielding_runs_prevented');">Fielding Runs Prevented</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'rel_league_reaction_distance');">Reaction</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'rel_league_burst_distance');">Burst</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'rel_league_routing_distance');">Route</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'f_bootup_distance');">Feet Covered</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'sprint_speed');">Sprint Speed</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'hp_to_1b');">HP to 1st</button></th>
+                <th><button class='table-top-button' onclick="sortBy(2, 'bolts');"># Bolts</button></th>
+            </tr>
+            {% for x in fielding_leaders_statcast%}
+                <tr>
+                    <th><button class='table-button' onclick = 'load_player("{{x.Name}}");'>{{x.Name}}</button></th>
+                    <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                    <th>{{x.Pos}}</th>
+                    <th>{{x.OAA}}</th>
+                    <th>{{x.OAAIn}}</th>
+                    <th>{{x.OAA3B}}</th>
+                    <th>{{x.OAA1B}}</th>
+                    <th>{{x.OAABack}}</th>
+                    <th>{{x.OAASuccess}}</th>
+                    <th>{{x.OAAEstSuccess}}</th>
+                    <th>{{x.FldRuns}}</th>
+                    <th>{{x.Reaction}}</th>
+                    <th>{{x.Burst}}</th>
+                    <th>{{x.Route}}</th>
+                    <th>{{x.Ft}}</th>
+                    <th>{{x.Sprint}}</th>
+                    <th>{{x.HP1B}}</th>
+                    <th>{{x.Bolts}}</th>
+                </tr>
+            {% endfor %}
+        </table>
+        <script>
+            var base_url = window.location.href.split('leaders')[0];
+
+            var statcast_abbr = {'AZ': 'ARI', 'TB': 'TBR', 'CWS': 'CHW', 'SD': 'SDP', 'KC': 'KCR', 'SF': 'SFG', 'WSH': 'WSN'};
+
+            function to_bool(text) {
+                return text.includes('t');
+            }
+
+            if (window.location.href.includes('basic')) {
+                var split = window.location.href.split('leaders/fielding/?')[1].split('?');
+                for (var i = 0; i < 2; i++) {
+                    document.getElementById('percent' + (i+1)).checked = to_bool(split[i].split(',')[4]);
+                    document.getElementById('ascend' + (i+1)).checked = to_bool(split[i].split(',')[3]);
+                }
+            }
+            
+            function load_player(name) {
+                window.location.href = base_url + 'players/player/?' + name.replace(' ', '+');
+            }
+
+            function load_team_abbr(team) {
+                if (team in statcast_abbr) {
+                    window.location.href = base_url + 'teams/team/?' + statcast_abbr[team];
+                }
+                else {
+                    window.location.href = base_url + 'teams/team/?' + team;
+                }
+            }
+            
+            function change_page(new_page) {
+                window.location.href = base_url + new_page;
+            }
+
+            function set_start_end(type) {
+                var url = window.location.href;
+                var output = url.split('leaders')[0] + 'leaders/fielding/';
+                var split = [];
+                var hit = [];
+                var pitch = [];
+                var field = [];
+                if (document.getElementById('start' + type).value == null || document.getElementById('end' + type).value == null) {
+                    return;
+                }
+                var start = document.getElementById('start' + type).value;
+                var end = document.getElementById('end' + type).value;
+                if (url.includes('basic')) {
+                    split = url.split('leaders/fielding/?')[1].split('?');
+                }
+                else {
+                    split = ['basic=Def,0,10,f,f', 'statcast=outs_above_average_x,0,10,f,f'];
+                }
+                hit = split[0].split('=')[1].split(',');
+                pitch = split[1].split('=')[1].split(',');
+                if (type == 1) {
+                    output = '?basic=' + hit[0] + ',' + start + ',' + end + ',' + hit[3] + ',' + hit[4];
+                    output += '?' + split[1];
+                }
+                else {
+                    output = '?' + split[0];
+                    output += '?statcast=' + pitch[0] + ',' + start + ',' + end + ',' + pitch[3] + ',' + pitch[4];
+                }
+                window.location.href = output;
+            }
+
+            function ascending(type) {
+                var url = window.location.href;
+                var output = url.split('leaders')[0] + 'leaders/fielding/';
+                var split = [];
+                var hit = [];
+                var pitch = [];
+                var field = [];
+                var isAscend = document.getElementById('ascend' + type).checked;
+                if (url.includes('basic')) {
+                    split = url.split('leaders/fielding/?')[1].split('?');
+                }
+                else {
+                    split = ['basic=Def,0,10,f,f', 'statcast=outs_above_average_x,0,10,f,f'];
+                }
+                hit = split[0].split('=')[1].split(',');
+                pitch = split[1].split('=')[1].split(',');
+                if (type == 1) {
+                    output = '?basic=' + hit[0] + ',' + hit[1] + ',' + hit[2] + ',' + isAscend + ',' + hit[4];
+                    output += '?' + split[1];
+                }
+                else {
+                    output = '?' + split[0];
+                    output += '?statcast=' + pitch[0] + ',' + pitch[1] + ',' + pitch[2] + ',' + isAscend + ',' + pitch[4];
+                }
+                window.location.href = output;
+            }
+
+            function percentile(type) {
+                var url = window.location.href;
+                var output = url.split('leaders')[0] + 'leaders/fielding/';
+                var split = [];
+                var hit = [];
+                var pitch = [];
+                var field = [];
+                var isPercentile = document.getElementById('percent' + type).checked;
+                if (url.includes('basic')) {
+                    split = url.split('leaders/fielding/?')[1].split('?');
+                }
+                else {
+                    split = ['basic=Def,0,10,f,f', 'statcast=outs_above_average_x,0,10,f,f'];
+                }
+                hit = split[0].split('=')[1].split(',');
+                pitch = split[1].split('=')[1].split(',');
+                if (type == 1) {
+                    output = '?basic=' + hit[0] + ',' + hit[1] + ',' + hit[2] + ',' + hit[3] + ',' + isPercentile;
+                    output += '?' + split[1];
+                }
+                else {
+                    output = '?' + split[0];
+                    output += '?statcast=' + pitch[0] + ',' + pitch[1] + ',' + pitch[2] + ',' + pitch[3] + ',' + isPercentile;
+                }
+                window.location.href = output;
+            }
+    
+            function sortBy(type, val) {
+                var url = window.location.href;
+                var output = url.split('leaders')[0] + 'leaders/fielding/';
+                var split = [];
+                var hit = [];
+                var pitch = [];
+                var field = [];
+                if (url.includes('basic')) {
+                    split = url.split('leaders/fielding/?')[1].split('?');
+                }
+                else {
+                    split = ['basic=Def,0,10,f,f', 'statcast=outs_above_average_x,0,10,f,f'];
+                }
+                hit = split[0].split('=')[1].split(',');
+                pitch = split[1].split('=')[1].split(',');
+                if (type == 1) {
+                    output = '?basic=' + val + ',' + hit[1] + ',' + hit[2] + ',' + hit[3] + ',' + hit[4];
+                    output += '?' + split[1];
+                }
+                else {
+                    output = '?' + split[0];
+                    output += '?statcast=' + val + ',' + pitch[1] + ',' + pitch[2] + ',' + pitch[3] + ',' + pitch[4];;
+                }
+                window.location.href = output;
+            }
+        </script>
+    </body>
+</html>

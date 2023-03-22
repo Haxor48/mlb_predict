@@ -1,0 +1,818 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Artificial Scout</title>
+        <style>
+            .top {
+                margin-left: 570px;
+            }
+            .top:hover {
+                cursor: pointer;
+            }
+            .title {
+                color: #00b4ff;
+                font-family: Tahoma, sans-serif;
+                font-size: 40px;
+            }
+            .title-img {
+                float: left;
+                margin-right: 10px;
+            }
+            .top-buttons .top-button {
+                background-color: #00b4ff;
+                background: #00b4ff;
+                color: white;
+                border: none;
+                padding: 15px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 25px;
+                float: left;
+                cursor: pointer;
+                transition-duration: 0.4s;
+                font-family: Tahoma, sans-serif;
+                margin-bottom: 15px;
+            }
+            .top-button:hover {
+                background-color: black;
+            }
+            .league-text {
+                font-family: Tahoma, sans-serif;
+                color: black;
+                font-size: 40px;
+            }
+            .team-img {
+                margin-left: 350px;
+                height: 200px;
+                margin-top: 15px;
+                float: left;
+            }
+            .team-name {
+                font-family: Tahoma, sans-serif;
+                font-size: 40px;
+                margin-left: 630px;
+                margin-top: 15px;
+            }
+            .record-text {
+                font-family: Tahoma, sans-serif;
+                font-size: 20px;
+                margin-left: 80px;
+                margin-top: 10px;
+            }
+            .proj-record-text {
+                font-family: Tahoma, sans-serif;
+                font-size: 20px;
+                margin-left: 34px;
+                margin-top: 10px;
+            }
+            .record-group {
+                float: left;
+                margin-top: 10px;
+            }
+            td, th {
+                border: 1px solid black;
+            }
+            th {
+                width: 520px;
+            }
+            .top-row {
+                background-color: #00b4ff;
+                color: white;
+            }
+            .table-title {
+                font-family: Tahoma, sans-serif;
+                font-size: 20px;
+                margin-left: 55px;
+            }
+            .table-group {
+                float: left;
+                margin-left: 100px;
+            }
+            .smaller-table {
+                border-collapse: collapse;
+                font-family: Georgia, serif;
+                text-align: left;
+                width: 180px;
+            }
+            .smaller-table-title {
+                font-family: Tahoma, sans-serif;
+                font-size: 20px;
+                margin-left: 70px;
+            }
+            .smaller-table-group {
+                float: left;
+                margin-left: 50px;
+            }
+            .big-table {
+                border-collapse: collapse;
+                font-family: Georgia, serif;
+                clear: both;
+                text-align: left;
+                width: 1530px;
+            }
+            .big-title-text {
+                font-style: Tahoma, sans-serif;
+                color: black;
+                font-size: 30px;
+                margin-left: 675px;
+                clear: both;
+            }
+            .table {
+                border-collapse: collapse;
+                font-family: Georgia, serif;
+                clear: both;
+                text-align: left;
+                width: 1530px;
+            }
+            .division-text {
+                font-style: Tahoma, sans-serif;
+                color: black;
+                font-size: 30px;
+            }
+            .top-row:hover {
+                cursor: pointer;
+            }
+            .title-text {
+                font-style: Tahoma, sans-serif;
+                color: black;
+                margin-left: 650px;
+                font-size: 40px;
+                clear: both;
+            }
+            .table-button {
+                border: none;
+                background: white;
+                font-family: Georgia, serif;
+            }
+            .table-button:hover {
+                cursor: pointer;
+            }
+            .percentile-list {
+                margin-left: 600px;
+                font-size: 20px;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="top" id='top' onclick="change_page('')">
+            <img src="https://imgur.com/4TJ14y1.png" alt="Artificial Scout's Logo" width ='100' height="50" class='title-img'/>
+            <h1 class="title">Artificial Scout</h1>
+        </div>
+        <div class="top-buttons">
+            <button class="top-button" style="margin-left:450px; clear:both;"
+            onclick="change_page('players')">Players</button>
+            <button class="top-button" id='teams-button'
+            onclick="change_page('teams')">Teams</button>
+            <button class="top-button" id='leaders-button'
+            onclick="change_page('leaders')">Leaders</button>
+            <button class="top-button" id='standings-button'
+            onclick="change_page('standings')">Standings</button>
+            <button class="top-button" id='salary-button'
+            onclick="change_page('salaries')">Salary Projector</button>
+        </div>
+        <br><br><br><br>
+        <img src = {{info.Img}} class="team-img">
+        <div>
+            <h1 class="team-name">{{name}}</h1>
+            <div class="record-group">
+                <a class="record-text">Position</a><br>
+                <a class="record-text">{{info.Pos}}</a>
+            </div>
+            <div class="record-group">
+                <a class="record-text">Team</a><br>
+                <a class="record-text">{{info.Team}}</a>
+            </div><br><br><br><br>
+            <div class="record-group">
+                <a class="record-text">Age</a><br>
+                <a class="record-text">{{info.Age}}</a>
+            </div>
+        </div><br>
+        <h1 class="title-text" style='margin-top: 30px;'>Top Percentiles (Percentile - Value)</h1>
+        <ul>
+            {% for x in top_percentiles %}
+            <li class='percentile-list'>{{x.Name}}: {{x.Percent}} - {{x.Val}}</li>
+            {% endfor %}
+        </ul>
+        <h1 class="title-text">Lowest Percentiles</h1>
+        <ul>
+            {% for x in bottom_percentiles %}
+            <li class='percentile-list'>{{x.Name}}: {{x.Percent}} - {{x.Val}}</li>
+            {% endfor %}
+        </ul>
+        {% if isHitter %}
+        <h1 class="title-text">Hitting Stats</h1>
+        <h1 class="division-text" style="margin-left: 675px;">Standard Hitting</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent1' onclick='percentile(1);'>Percentiles
+        <table class="table">
+            <tr class="top-row">
+                <th>Name</th>
+                <th>Team</th>
+                <th>Year</th>
+                <th>Pos</th>
+                <th>G</th>
+                <th>AB</th>
+                <th>PA</th>
+                <th>H</th>
+                <th>2B</th>
+                <th>3B</th>
+                <th>HR</th>
+                <th>BB</th>
+                <th>HBP</th>
+                <th>TB</th>
+                <th>R</th>
+                <th>RBI</th>
+                <th>SB</th>
+                <th>CS</th>
+                <th>SO</th>
+                <th>GDP</th>
+                <th>AVG</th>
+                <th>OBP</th>
+                <th>SLG</th>
+                <th>OPS</th>
+            </tr>
+            {% for x in basic_batting %}
+            <tr>
+                <th>{{x.Name}}</th>
+                <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.Year}}</th>
+                <th>{{x.Pos}}</th>
+                <th>{{x.G}}</th>
+                <th>{{x.AB}}</th>
+                <th>{{x.PA}}</th>
+                <th>{{x.H}}</th>
+                <th>{{x.Doubles}}</th>
+                <th>{{x.Triples}}</th>
+                <th>{{x.HR}}</th>
+                <th>{{x.BB}}</th>
+                <th>{{x.HBP}}</th>
+                <th>{{x.TB}}</th>
+                <th>{{x.R}}</th>
+                <th>{{x.RBI}}</th>
+                <th>{{x.SB}}</th>
+                <th>{{x.CS}}</th>
+                <th>{{x.SO}}</th>
+                <th>{{x.GDP}}</th>
+                <th>{{x.AVG}}</th>
+                <th>{{x.OBP}}</th>
+                <th>{{x.SLG}}</th>
+                <th>{{x.OPS}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 675px;">Advanced Hitting</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent2' onclick='percentile(2);'>Percentiles
+        <table class="table">
+            <tr class="top-row">
+                <th>Name</th>
+                <th>Team</th>
+                <th>Year</th>
+                <th>Pos</th>
+                <th>G</th>
+                <th>PA</th>
+                <th>AVG</th>
+                <th>OBP</th>
+                <th>SLG</th>
+                <th>OPS</th>
+                <th>WRC+</th>
+                <th>wOBA</th>
+                <th>ISO</th>
+                <th>BABIP</th>
+                <th>Clutch</th>
+                <th>BB%</th>
+                <th>K%</th>
+                <th>HR%</th>
+                <th>Offensive Runs</th>
+                <th>Defensive Runs</th>
+                <th>fWAR</th>
+                <th>bWAR</th>
+                <th>aWAR</th>
+                <th>WPA</th>
+            </tr>
+            {% for x in advanced_batting %}
+            <tr>
+                <th>{{x.Name}}</th>
+                <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.Year}}</th>
+                <th>{{x.Pos}}</th>
+                <th>{{x.G}}</th>
+                <th>{{x.PA}}</th>
+                <th>{{x.AVG}}</th>
+                <th>{{x.OBP}}</th>
+                <th>{{x.SLG}}</th>
+                <th>{{x.OPS}}</th>
+                <th>{{x.wRC}}</th>
+                <th>{{x.wOBA}}</th>
+                <th>{{x.ISO}}</th>
+                <th>{{x.BABIP}}</th>
+                <th>{{x.Clutch}}</th>
+                <th>{{x.BB}}</th>
+                <th>{{x.K}}</th>
+                <th>{{x.xBA}}</th>
+                <th>{{x.OFF}}</th>
+                <th>{{x.DEF}}</th>
+                <th>{{x.fWAR}}</th>
+                <th>{{x.bWAR}}</th>
+                <th>{{x.aWAR}}</th>
+                <th>{{x.WPA}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 675px;">Statcast Hitting</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent3' onclick='percentile(3);'>Percentiles
+        <table class="table">
+            <tr class="top-row">
+                <th>Name</th>
+                <th>Team</th>
+                <th>Year</th>
+                <th>Pos</th>
+                <th>PA</th>
+                <th>Barrel%</th>
+                <th>Hard Hit%</th>
+                <th>LD%</th>
+                <th>GB%</th>
+                <th>FB%</th>
+                <th>Swing% Outside Zone</th>
+                <th>Swing% Inside Zone</th>
+                <th>Contact%</th>
+                <th>Pull%</th>
+                <th>Cent%</th>
+                <th>Oppo%</th>
+                <th>Whiff%</th>
+                <th>Avg Exit Velo</th>
+                <th>Max Exit Velo</th>
+                <th>Launch Angle</th>
+                <th>xBA</th>
+                <th>xSLG</th>
+                <th>xWOBA</th>
+                <th>BABIP</th>
+            </tr>
+            {% for x in statcast_batting %}
+            <tr>
+                <th>{{x.Name}}</th>
+                <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.Year}}</th>
+                <th>{{x.Pos}}</th>
+                <th>{{x.PA}}</th>
+                <th>{{x.Barrel}}</th>
+                <th>{{x.HardHit}}</th>
+                <th>{{x.LA}}</th>
+                <th>{{x.GB}}</th>
+                <th>{{x.FB}}</th>
+                <th>{{x.O_Swing}}</th>
+                <th>{{x.Z_Swing}}</th>
+                <th>{{x.Contact}}</th>
+                <th>{{x.Pull}}</th>
+                <th>{{x.Cent}}</th>
+                <th>{{x.Oppo}}</th>
+                <th>{{x.Whiff}}</th>
+                <th>{{x.Avg_EV}}</th>
+                <th>{{x.Max_EV}}</th>
+                <th>{{x.LA}}</th>
+                <th>{{x.xBA}}</th>
+                <th>{{x.xSLG}}</th>
+                <th>{{x.xwOBA}}</th>
+                <th>{{x.BABIP}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 675px;">Projected Hitting</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent4' onclick='percentile(4);'>Percentiles
+        <table class="table">
+            <tr class="top-row">
+                <th>Name</th>
+                <th>Team</th>
+                <th>Year</th>
+                <th>Pos</th>
+                <th>G</th>
+                <th>PA</th>
+                <th>H</th>
+                <th>HR</th>
+                <th>R</th>
+                <th>RBI</th>
+                <th>SB</th>
+                <th>BB</th>
+                <th>AVG</th>
+                <th>OBP</th>
+                <th>SLG</th>
+                <th>OPS</th>
+                <th>WRC+</th>
+                <th>wOBA</th>
+                <th>Offensive Runs</th>
+                <th>fWAR</th>
+                <th>bWAR</th>
+                <th>aWAR</th>
+                <th>WPA</th>
+            </tr>
+            {% for x in projected_batting%}
+                <tr>
+                    <th>{{x.Name}}</th>
+                    <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                    <th>{{x.Year}}</th>
+                    <th>{{x.Pos}}</th>
+                    <th>{{x.G}}</th>
+                    <th>{{x.PA}}</th>
+                    <th>{{x.H}}</th>
+                    <th>{{x.HR}}</th>
+                    <th>{{x.R}}</th>
+                    <th>{{x.RBI}}</th>
+                    <th>{{x.SB}}</th>
+                    <th>{{x.BB}}</th>
+                    <th>{{x.AVG}}</th>
+                    <th>{{x.OBP}}</th>
+                    <th>{{x.SLG}}</th>
+                    <th>{{x.OPS}}</th>
+                    <th>{{x.wRC}}</th>
+                    <th>{{x.wOBA}}</th>
+                    <th>{{x.OFF}}</th>
+                    <th>{{x.fWAR}}</th>
+                    <th>{{x.bWAR}}</th>
+                    <th>{{x.aWAR}}</th>
+                    <th>{{x.WPA}}</th>
+                </tr>
+            {% endfor %}
+        </table>
+        <h1 class="title-text">Fielding/Running Stats</h1>
+        <h1 class="division-text" style="margin-left: 600px;">Standard Fielding/Running</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent5' onclick='percentile(5);'>Percentiles
+        <table class="table">
+            <tr class="top-row">
+                <th>Name</th>
+                <th>Team</th>
+                <th>Year</th>
+                <th>Pos</th>
+                <th>G</th>
+                <th>GS</th>
+                <th>IP</th>
+                <th>PO</th>
+                <th>A</th>
+                <th>DP</th>
+                <th>E</th>
+                <th>ARM</th>
+                <th>UZR</th>
+                <th>DRS</th>
+                <th>OAA</th>
+                <th>FRM</th>
+                <th>Defensive Runs</th>
+                <th>R</th>
+                <th>SB</th>
+                <th>CS</th>
+                <th>BsR</th>
+            </tr>
+            {% for x in fielding_basic%}
+                <tr>
+                    <th>{{x.Name}}</th>
+                    <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                    <th>{{x.Year}}</th>
+                    <th>{{x.Pos}}</th>
+                    <th>{{x.G}}</th>
+                    <th>{{x.GS}}</th>
+                    <th>{{x.IP}}</th>
+                    <th>{{x.PO}}</th>
+                    <th>{{x.A}}</th>
+                    <th>{{x.DP}}</th>
+                    <th>{{x.E}}</th>
+                    <th>{{x.ARM}}</th>
+                    <th>{{x.UZR}}</th>
+                    <th>{{x.DRS}}</th>
+                    <th>{{x.OAA}}</th>
+                    <th>{{x.FRM}}</th>
+                    <th>{{x.DEF}}</th>
+                    <th>{{x.R}}</th>
+                    <th>{{x.SB}}</th>
+                    <th>{{x.CS}}</th>
+                    <th>{{x.BsR}}</th>
+                </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 600px;">Statcast Fielding/Running</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent6' onclick='percentile(6);'>Percentiles
+        <table class="table">
+            <tr class="top-row">
+                <th>Name</th>
+                <th>Team</th>
+                <th>Year</th>
+                <th>Pos</th>
+                <th>OAA</th>
+                <th>OAA In</th>
+                <th>OAA Lateral 3B</th>
+                <th>OAA Lateral 1B</th>
+                <th>OAA Back</th>
+                <th>OAA Success Rate</th>
+                <th>Estimated OAA Success Rate</th>
+                <th>Fielding Runs Prevented</th>
+                <th>Reaction</th>
+                <th>Burst</th>
+                <th>Route</th>
+                <th>Feet Covered</th>
+                <th>Sprint Speed</th>
+                <th>HP to 1st</th>
+                <th># Bolts</th>
+            </tr>
+            {% for x in fielding_statcast%}
+                <tr>
+                    <th>{{x.Name}}</th>
+                    <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                    <th>{{x.Year}}</th>
+                    <th>{{x.Pos}}</th>
+                    <th>{{x.OAA}}</th>
+                    <th>{{x.OAAIn}}</th>
+                    <th>{{x.OAA3B}}</th>
+                    <th>{{x.OAA1B}}</th>
+                    <th>{{x.OAABack}}</th>
+                    <th>{{x.OAASuccess}}</th>
+                    <th>{{x.OAAEstSuccess}}</th>
+                    <th>{{x.FldRuns}}</th>
+                    <th>{{x.Reaction}}</th>
+                    <th>{{x.Burst}}</th>
+                    <th>{{x.Route}}</th>
+                    <th>{{x.Ft}}</th>
+                    <th>{{x.Sprint}}</th>
+                    <th>{{x.HP1B}}</th>
+                    <th>{{x.Bolts}}</th>
+                </tr>
+            {% endfor %}
+        </table>
+        {% else %}
+        <h1 class="title-text">Pitching Stats</h1>
+        <h1 class="division-text" style="margin-left: 675px;">Standard Pitching</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent7' onclick='percentile(7);'>Percentiles
+        <table class="table">
+            <tr class="top-row">
+                <th>Name</th>
+                <th>Team</th>
+                <th>Year</th>
+                <th>G</th>
+                <th>GS</th>
+                <th>IP</th>
+                <th>W</th>
+                <th>L</th>
+                <th>CG</th>
+                <th>SV</th>
+                <th>BS</th>
+                <th>ER</th>
+                <th>H</th>
+                <th>BB</th>
+                <th>SO</th>
+                <th>ERA</th>
+                <th>WHIP</th>
+            </tr>
+            {% for x in basic_pitching %}
+            <tr>
+                <th>{{x.Name}}</th>
+                <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.Year}}</th>
+                <th>{{x.G}}</th>
+                <th>{{x.GS}}</th>
+                <th>{{x.IP}}</th>
+                <th>{{x.W}}</th>
+                <th>{{x.L}}</th>
+                <th>{{x.CG}}</th>
+                <th>{{x.SV}}</th>
+                <th>{{x.BS}}</th>
+                <th>{{x.ER}}</th>
+                <th>{{x.H}}</th>
+                <th>{{x.BB}}</th>
+                <th>{{x.SO}}</th>
+                <th>{{x.ERA}}</th>
+                <th>{{x.WHIP}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 675px;">Advanced Pitching</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent8' onclick='percentile(8);'>Percentiles
+        <table class="table">
+            <tr class="top-row">
+                <th>Name</th>
+                <th>Team</th>
+                <th>Year</th>
+                <th>G</th>
+                <th>IP</th>
+                <th>K/9</th>
+                <th>BB/9</th>
+                <th>HR/9</th>
+                <th>K/BB</th>
+                <th>AVG</th>
+                <th>Clutch</th>
+                <th>BABIP</th>
+                <th>LOB%</th>
+                <th>WHIP</th>
+                <th>ERA</th>
+                <th>RS/9</th>
+                <th>FIP</th>
+                <th>xFIP</th>
+                <th>SIERA</th>
+                <th>fWAR</th>
+                <th>bWAR</th>
+                <th>aWAR</th>
+                <th>WPA</th>
+            </tr>
+            {% for x in advanced_pitching %}
+            <tr>
+                <th>{{x.Name}}</th>
+                <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.Year}}</th>
+                <th>{{x.G}}</th>
+                <th>{{x.IP}}</th>
+                <th>{{x.K9}}</th>
+                <th>{{x.BB9}}</th>
+                <th>{{x.HR9}}</th>
+                <th>{{x.KBB}}</th>
+                <th>{{x.AVG}}</th>
+                <th>{{x.Clutch}}</th>
+                <th>{{x.BABIP}}</th>
+                <th>{{x.LOB}}</th>
+                <th>{{x.WHIP}}</th>
+                <th>{{x.ERA}}</th>
+                <th>{{x.RS9}}</th>
+                <th>{{x.FIP}}</th>
+                <th>{{x.xFIP}}</th>
+                <th>{{x.SIERA}}</th>
+                <th>{{x.fWAR}}</th>
+                <th>{{x.bWAR}}</th>
+                <th>{{x.aWAR}}</th>
+                <th>{{x.WPA}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 675px;">Statcast Pitching</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent9' onclick='percentile(9);'>Percentiles
+        <table class="table">
+            <tr class="top-row">
+                <th>Name</th>
+                <th>Team</th>
+                <th>Year</th>
+                <th>G</th>
+                <th>IP</th>
+                <th>HH%</th>
+                <th>Barrel%</th>
+                <th>K%</th>
+                <th>BB%</th>
+                <th>LD%</th>
+                <th>GB%</th>
+                <th>FB%</th>
+                <th>K/BB</th>
+                <th>GB/FB</th>
+                <th>HR/FB</th>
+                <th>Soft%</th>
+                <th>Med%</th>
+                <th>Avg Exit Velo</th>
+                <th>Max Exit Velo</th>
+                <th># Pitches</th>
+                <th>Max Avg Velo
+                <th>AVG Spin Rate</th>
+                <th>xBA</th>
+                <th>xSLG</th>
+                <th>xWOBA</th>
+                <th>xERA</th>
+            </tr>
+            {% for x in statcast_pitching %}
+            <tr>
+                <th>{{x.Name}}</th>
+                <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.Year}}</th>
+                <th>{{x.G}}</th>
+                <th>{{x.IP}}</th>
+                <th>{{x.HardHit}}</th>
+                <th>{{x.Barrel}}</th>
+                <th>{{x.K}}</th>
+                <th>{{x.BB}}</th>
+                <th>{{x.LD}}</th>
+                <th>{{x.GB}}</th>
+                <th>{{x.FB}}</th>
+                <th>{{x.KBB}}</th>
+                <th>{{x.GBFB}}</th>
+                <th>{{x.HRFB}}</th>
+                <th>{{x.Soft}}</th>
+                <th>{{x.Med}}</th>
+                <th>{{x.AvrEV}}</th>
+                <th>{{x.MaxEV}}</th>
+                <th>{{x.NumPitches}}</th>
+                <th>{{x.MaxVelo}}</th>
+                <th>{{x.AvgSpin}}</th>
+                <th>{{x.xBA}}</th>
+                <th>{{x.xSLG}}</th>
+                <th>{{x.xwOBA}}</th>
+                <th>{{x.xERA}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 675px;">Projected Pitching</h1>
+        <input style='margin-left:300px;' type='checkbox' id='percent10' onclick='percentile(10);'>Percentiles
+        <table class="table">
+            <tr class="top-row">
+                <th>Name</th>
+                <th>Team</th>
+                <th>Year</th>
+                <th>G</th>
+                <th>GS</th>
+                <th>IP</th>
+                <th>K</th>
+                <th>BB</th>
+                <th>K/9</th>
+                <th>BB/9</th>
+                <th>HR/9</th>
+                <th>K/BB</th>
+                <th>AVG</th>
+                <th>WHIP</th>
+                <th>RS/9</th>
+                <th>ERA</th>
+                <th>FIP</th>
+                <th>xFIP</th>
+                <th>SIERA</th>
+                <th>fWAR</th>
+                <th>bWAR</th>
+                <th>aWAR</th>
+                <th>WPA</th>
+            </tr>
+            {% for x in projected_pitching%}
+                <tr>
+                    <th>{{x.Name}}</th>
+                    <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team}}</button></th>
+                    <th>{{x.Year}}</th>
+                    <th>{{x.G}}</th>
+                    <th>{{x.GS}}</th>
+                    <th>{{x.IP}}</th>
+                    <th>{{x.K}}</th>
+                    <th>{{x.BB}}</th>
+                    <th>{{x.K9}}</th>
+                    <th>{{x.BB9}}</th>
+                    <th>{{x.HR9}}</th>
+                    <th>{{x.KBB}}</th>
+                    <th>{{x.AVG}}</th>
+                    <th>{{x.WHIP}}</th>
+                    <th>{{x.RS9}}</th>
+                    <th>{{x.ERA}}</th>
+                    <th>{{x.FIP}}</th>
+                    <th>{{x.xFIP}}</th>
+                    <th>{{x.SIERA}}</th>
+                    <th>{{x.fWAR}}</th>
+                    <th>{{x.bWAR}}</th>
+                    <th>{{x.aWAR}}</th>
+                    <th>{{x.WPA}}</th>
+                </tr>
+            {% endfor %}
+        </table>
+        {% endif %}
+        <script>
+            var base_url = window.location.href.split('players')[0];
+
+            var statcast_abbr = {'AZ': 'ARI', 'TB': 'TBR', 'CWS': 'CHW', 'SD': 'SDP', 'KC': 'KCR', 'SF': 'SFG', 'WSH': 'WSN'};
+
+            function to_bool(text) {
+                return text.includes('t');
+            }
+            
+            if (window.location.href.includes('?')) {
+                var split = window.location.href.split('?')[1].split(',');
+                for (var i = 0; i < split.length; i++) {
+                    {% if isHitter %}
+                    document.getElementById('percent' + (i+1)).checked = to_bool(split[i]);
+                    {% else %}
+                    document.getElementById('percent' + (i+7)).checked = to_bool(split[i]);
+                    {% endif %}
+                }
+            }
+
+            function load_team_abbr(team) {
+                if (team in statcast_abbr) {
+                    window.location.href = base_url + 'teams/team/?' + statcast_abbr[team];
+                }
+                window.location.href = base_url + 'teams/team/?' + team;
+            }
+            
+            function change_page(new_page) {
+                window.location.href = base_url + new_page;
+            }
+
+            function percentile(type) {
+                var output = '';
+                var split = [];
+                if (window.location.href.includes('$')) {
+                    output = window.location.href.split('$')[0] + '$';
+                    split = window.location.href.split('$')[1].split(',');
+                }
+                else {
+                    output = window.location.href + '$';
+                    {% if isHitter %}
+                    split = ['f', 'f', 'f', 'f', 'f', 'f'];
+                    {% else %}
+                    split = ['f', 'f', 'f', 'f'];
+                    {% endif %}
+                }
+                {% if isHitter %}
+                split[type-1] = '' + document.getElementById('percent' + type).checked;
+                {% else %}
+                split[type-7] = '' + document.getElementById('percent' + type).checked;
+                {% endif %}
+                for (var i = 0; i < split.length; i++) {
+                    output += split[i];
+                    if (i < split.length-1) {
+                        output += ',';
+                    }
+                }
+                window.location.href = output;
+            }
+        </script>
+    </body>
+</html>

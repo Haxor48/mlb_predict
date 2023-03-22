@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Artificial Scout</title>
+        <style>
+            .top {
+                margin-left: 570px;
+            }
+            .top:hover {
+                cursor: pointer;
+            }
+            .title {
+                color: #00b4ff;
+                font-family: Tahoma, sans-serif;
+                font-size: 40px;
+            }
+            .title-img {
+                float: left;
+                margin-right: 10px;
+            }
+            .top-buttons .top-button {
+                background-color: #00b4ff;
+                background: #00b4ff;
+                color: white;
+                border: none;
+                padding: 15px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 25px;
+                float: left;
+                cursor: pointer;
+                transition-duration: 0.4s;
+                font-family: Tahoma, sans-serif;
+                margin-bottom: 15px;
+            }
+            .top-button:hover {
+                background-color: black;
+            }
+            .league-text {
+                font-family: Tahoma, sans-serif;
+                color: black;
+                font-size: 40px;
+            }
+            .league {
+                clear:both; 
+                margin-left: 530px;
+            }
+            .table {
+                border-collapse: collapse;
+                font-family: Georgia, serif;
+                clear: both;
+                text-align: left;
+                width: 1530px;
+            }
+            td, th {
+                border: 1px solid black;
+            }
+            .division-text {
+                font-style: Tahoma, sans-serif;
+                color: black;
+                font-size: 30px;
+            }
+            .top-row {
+                background-color: #00b4ff;
+                color: white;
+            }
+            .title-text {
+                font-style: Tahoma, sans-serif;
+                color: black;
+                margin-left: 700px;
+                font-size: 40px;
+                clear: both;
+            }
+            .table-button {
+                border: none;
+                background: white;
+                font-family: Georgia, serif;
+            }
+            .table-button:hover {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="top" id='top' onclick="change_page('')">
+            <img src="https://imgur.com/4TJ14y1.png" alt="Artificial Scout's Logo" width ='100' height="50" class='title-img'/>
+            <h1 class="title">Artificial Scout</h1>
+        </div>
+        <div class="top-buttons">
+            <button class="top-button" style="margin-left:450px; clear:both;"
+            onclick="change_page('players')">Players</button>
+            <button class="top-button" id='teams-button'
+            onclick="change_page('teams')">Teams</button>
+            <button class="top-button" id='leaders-button'
+            onclick="change_page('leaders')">Leaders</button>
+            <button class="top-button" id='standings-button'
+            onclick="change_page('standings')">Standings</button>
+            <button class="top-button" id='salary-button'
+            onclick="change_page('salaries')">Salary Projector</button>
+        </div>
+        <h1 class="title-text">Standings</h1>
+        <h1 class="division-text" style="margin-left: 730px;">AL West</h1>
+        <table class="table">
+            <tr class="top-row">
+                <th>#</th>
+                <th>Team</th>
+                <th>W</th>
+                <th>L</th>
+                <th>W%</th>
+                <th>GB</th>
+                <th>Strk</th>
+                <th>Diff</th>
+                <th>Rf</th>
+                <th>Rf/G</th>
+                <th>Ra</th>
+                <th>Ra/G</th>
+                <th>Pyth W</th>
+                <th>Pyth L</th>
+                <th>Home W-L</th>
+                <th>Road W-L</th>
+                <th>W-L vs > .500</th>
+                <th>W-L vs < .500</th>
+                <th>Proj Rf</th>
+                <th>Proj Ra</th>
+                <th>Proj Diff</th>
+                <th>Proj W</th>
+                <th>Proj L</th>
+            </tr>
+            {% for x in al_west%}
+            <tr>
+                <th>{{forloop.counter}}</th>
+                <th><button class='table-button' onclick='load_team("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.W}}</th>
+                <th>{{x.L}}</th>
+                <th>{{x.WPercent}}</th>
+                <th>{{x.GB}}</th>
+                <th>{{x.Strk}}</th>
+                <th>{{x.Diff}}</th>
+                <th>{{x.Rf}}</th>
+                <th>{{x.RfG}}</th>
+                <th>{{x.Ra}}</th>
+                <th>{{x.RaG}}</th>
+                <th>{{x.PythW}}</th>
+                <th>{{x.PythL}}</th>
+                <th>{{x.HomeWL}}</th>
+                <th>{{x.RoadWL}}</th>
+                <th>{{x.Over500WL}}</th>
+                <th>{{x.Under500WL}}</th>
+                <th>{{x.ProjRf}}</th>
+                <th>{{x.ProjRa}}</th>
+                <th>{{x.ProjDiff}}</th>
+                <th>{{x.ProjW}}</th>
+                <th>{{x.ProjL}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 710px;">AL Central</h1>
+        <table class="table">
+            <tr class="top-row">
+                <th>#</th>
+                <th>Team</th>
+                <th>W</th>
+                <th>L</th>
+                <th>W%</th>
+                <th>GB</th>
+                <th>Strk</th>
+                <th>Diff</th>
+                <th>Rf</th>
+                <th>Rf/G</th>
+                <th>Ra</th>
+                <th>Ra/G</th>
+                <th>Pyth W</th>
+                <th>Pyth L</th>
+                <th>Home W-L</th>
+                <th>Road W-L</th>
+                <th>W-L vs > .500</th>
+                <th>W-L vs < .500</th>
+                <th>Proj Rf</th>
+                <th>Proj Ra</th>
+                <th>Proj Diff</th>
+                <th>Proj W</th>
+                <th>Proj L</th>
+            </tr>
+            {% for x in al_central%}
+            <tr>
+                <th>{{forloop.counter}}</th>
+                <th><button class='table-button' onclick='load_team("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.W}}</th>
+                <th>{{x.L}}</th>
+                <th>{{x.WPercent}}</th>
+                <th>{{x.GB}}</th>
+                <th>{{x.Strk}}</th>
+                <th>{{x.Diff}}</th>
+                <th>{{x.Rf}}</th>
+                <th>{{x.RfG}}</th>
+                <th>{{x.Ra}}</th>
+                <th>{{x.RaG}}</th>
+                <th>{{x.PythW}}</th>
+                <th>{{x.PythL}}</th>
+                <th>{{x.HomeWL}}</th>
+                <th>{{x.RoadWL}}</th>
+                <th>{{x.Over500WL}}</th>
+                <th>{{x.Under500WL}}</th>
+                <th>{{x.ProjRf}}</th>
+                <th>{{x.ProjRa}}</th>
+                <th>{{x.ProjDiff}}</th>
+                <th>{{x.ProjW}}</th>
+                <th>{{x.ProjL}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 730px;">AL East</h1>
+        <table class="table">
+            <tr class="top-row">
+                <th>#</th>
+                <th>Team</th>
+                <th>W</th>
+                <th>L</th>
+                <th>W%</th>
+                <th>GB</th>
+                <th>Strk</th>
+                <th>Diff</th>
+                <th>Rf</th>
+                <th>Rf/G</th>
+                <th>Ra</th>
+                <th>Ra/G</th>
+                <th>Pyth W</th>
+                <th>Pyth L</th>
+                <th>Home W-L</th>
+                <th>Road W-L</th>
+                <th>W-L vs > .500</th>
+                <th>W-L vs < .500</th>
+                <th>Proj Rf</th>
+                <th>Proj Ra</th>
+                <th>Proj Diff</th>
+                <th>Proj W</th>
+                <th>Proj L</th>
+            </tr>
+            {% for x in al_east%}
+            <tr>
+                <th>{{forloop.counter}}</th>
+                <th><button class='table-button' onclick='load_team("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.W}}</th>
+                <th>{{x.L}}</th>
+                <th>{{x.WPercent}}</th>
+                <th>{{x.GB}}</th>
+                <th>{{x.Strk}}</th>
+                <th>{{x.Diff}}</th>
+                <th>{{x.Rf}}</th>
+                <th>{{x.RfG}}</th>
+                <th>{{x.Ra}}</th>
+                <th>{{x.RaG}}</th>
+                <th>{{x.PythW}}</th>
+                <th>{{x.PythL}}</th>
+                <th>{{x.HomeWL}}</th>
+                <th>{{x.RoadWL}}</th>
+                <th>{{x.Over500WL}}</th>
+                <th>{{x.Under500WL}}</th>
+                <th>{{x.ProjRf}}</th>
+                <th>{{x.ProjRa}}</th>
+                <th>{{x.ProjDiff}}</th>
+                <th>{{x.ProjW}}</th>
+                <th>{{x.ProjL}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 730px;">NL West</h1>
+        <table class="table">
+            <tr class="top-row">
+                <th>#</th>
+                <th>Team</th>
+                <th>W</th>
+                <th>L</th>
+                <th>W%</th>
+                <th>GB</th>
+                <th>Strk</th>
+                <th>Diff</th>
+                <th>Rf</th>
+                <th>Rf/G</th>
+                <th>Ra</th>
+                <th>Ra/G</th>
+                <th>Pyth W</th>
+                <th>Pyth L</th>
+                <th>Home W-L</th>
+                <th>Road W-L</th>
+                <th>W-L vs > .500</th>
+                <th>W-L vs < .500</th>
+                <th>Proj Rf</th>
+                <th>Proj Ra</th>
+                <th>Proj Diff</th>
+                <th>Proj W</th>
+                <th>Proj L</th>
+            </tr>
+            {% for x in nl_west%}
+            <tr>
+                <th>{{forloop.counter}}</th>
+                <th><button class='table-button' onclick='load_team("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.W}}</th>
+                <th>{{x.L}}</th>
+                <th>{{x.WPercent}}</th>
+                <th>{{x.GB}}</th>
+                <th>{{x.Strk}}</th>
+                <th>{{x.Diff}}</th>
+                <th>{{x.Rf}}</th>
+                <th>{{x.RfG}}</th>
+                <th>{{x.Ra}}</th>
+                <th>{{x.RaG}}</th>
+                <th>{{x.PythW}}</th>
+                <th>{{x.PythL}}</th>
+                <th>{{x.HomeWL}}</th>
+                <th>{{x.RoadWL}}</th>
+                <th>{{x.Over500WL}}</th>
+                <th>{{x.Under500WL}}</th>
+                <th>{{x.ProjRf}}</th>
+                <th>{{x.ProjRa}}</th>
+                <th>{{x.ProjDiff}}</th>
+                <th>{{x.ProjW}}</th>
+                <th>{{x.ProjL}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 710px;">NL Central</h1>
+        <table class="table">
+            <tr class="top-row">
+                <th>#</th>
+                <th>Team</th>
+                <th>W</th>
+                <th>L</th>
+                <th>W%</th>
+                <th>GB</th>
+                <th>Strk</th>
+                <th>Diff</th>
+                <th>Rf</th>
+                <th>Rf/G</th>
+                <th>Ra</th>
+                <th>Ra/G</th>
+                <th>Pyth W</th>
+                <th>Pyth L</th>
+                <th>Home W-L</th>
+                <th>Road W-L</th>
+                <th>W-L vs > .500</th>
+                <th>W-L vs < .500</th>
+                <th>Proj Rf</th>
+                <th>Proj Ra</th>
+                <th>Proj Diff</th>
+                <th>Proj W</th>
+                <th>Proj L</th>
+            </tr>
+            {% for x in nl_central%}
+            <tr>
+                <th>{{forloop.counter}}</th>
+                <th><button class='table-button' onclick='load_team("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.W}}</th>
+                <th>{{x.L}}</th>
+                <th>{{x.WPercent}}</th>
+                <th>{{x.GB}}</th>
+                <th>{{x.Strk}}</th>
+                <th>{{x.Diff}}</th>
+                <th>{{x.Rf}}</th>
+                <th>{{x.RfG}}</th>
+                <th>{{x.Ra}}</th>
+                <th>{{x.RaG}}</th>
+                <th>{{x.PythW}}</th>
+                <th>{{x.PythL}}</th>
+                <th>{{x.HomeWL}}</th>
+                <th>{{x.RoadWL}}</th>
+                <th>{{x.Over500WL}}</th>
+                <th>{{x.Under500WL}}</th>
+                <th>{{x.ProjRf}}</th>
+                <th>{{x.ProjRa}}</th>
+                <th>{{x.ProjDiff}}</th>
+                <th>{{x.ProjW}}</th>
+                <th>{{x.ProjL}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 730px;">NL East</h1>
+        <table class="table">
+            <tr class="top-row">
+                <th>#</th>
+                <th>Team</th>
+                <th>W</th>
+                <th>L</th>
+                <th>W%</th>
+                <th>GB</th>
+                <th>Strk</th>
+                <th>Diff</th>
+                <th>Rf</th>
+                <th>Rf/G</th>
+                <th>Ra</th>
+                <th>Ra/G</th>
+                <th>Pyth W</th>
+                <th>Pyth L</th>
+                <th>Home W-L</th>
+                <th>Road W-L</th>
+                <th>W-L vs > .500</th>
+                <th>W-L vs < .500</th>
+                <th>Proj Rf</th>
+                <th>Proj Ra</th>
+                <th>Proj Diff</th>
+                <th>Proj W</th>
+                <th>Proj L</th>
+            </tr>
+            {% for x in nl_east%}
+            <tr>
+                <th>{{forloop.counter}}</th>
+                <th><button class='table-button' onclick='load_team("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.W}}</th>
+                <th>{{x.L}}</th>
+                <th>{{x.WPercent}}</th>
+                <th>{{x.GB}}</th>
+                <th>{{x.Strk}}</th>
+                <th>{{x.Diff}}</th>
+                <th>{{x.Rf}}</th>
+                <th>{{x.RfG}}</th>
+                <th>{{x.Ra}}</th>
+                <th>{{x.RaG}}</th>
+                <th>{{x.PythW}}</th>
+                <th>{{x.PythL}}</th>
+                <th>{{x.HomeWL}}</th>
+                <th>{{x.RoadWL}}</th>
+                <th>{{x.Over500WL}}</th>
+                <th>{{x.Under500WL}}</th>
+                <th>{{x.ProjRf}}</th>
+                <th>{{x.ProjRa}}</th>
+                <th>{{x.ProjDiff}}</th>
+                <th>{{x.ProjW}}</th>
+                <th>{{x.ProjL}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 690px;">AL Wild Card</h1>
+        <table class="table">
+            <tr class="top-row">
+                <th>#</th>
+                <th>Team</th>
+                <th>W</th>
+                <th>L</th>
+                <th>W%</th>
+                <th>GB</th>
+                <th>Strk</th>
+                <th>Diff</th>
+                <th>Rf</th>
+                <th>Rf/G</th>
+                <th>Ra</th>
+                <th>Ra/G</th>
+                <th>Pyth W</th>
+                <th>Pyth L</th>
+                <th>Home W-L</th>
+                <th>Road W-L</th>
+                <th>W-L vs > .500</th>
+                <th>W-L vs < .500</th>
+                <th>Proj Rf</th>
+                <th>Proj Ra</th>
+                <th>Proj Diff</th>
+                <th>Proj W</th>
+                <th>Proj L</th>
+            </tr>
+            {% for x in al_wildcard%}
+            <tr>
+                <th>{{forloop.counter}}</th>
+                <th><button class='table-button' onclick='load_team("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.W}}</th>
+                <th>{{x.L}}</th>
+                <th>{{x.WPercent}}</th>
+                <th>{{x.GB}}</th>
+                <th>{{x.Strk}}</th>
+                <th>{{x.Diff}}</th>
+                <th>{{x.Rf}}</th>
+                <th>{{x.RfG}}</th>
+                <th>{{x.Ra}}</th>
+                <th>{{x.RaG}}</th>
+                <th>{{x.PythW}}</th>
+                <th>{{x.PythL}}</th>
+                <th>{{x.HomeWL}}</th>
+                <th>{{x.RoadWL}}</th>
+                <th>{{x.Over500WL}}</th>
+                <th>{{x.Under500WL}}</th>
+                <th>{{x.ProjRf}}</th>
+                <th>{{x.ProjRa}}</th>
+                <th>{{x.ProjDiff}}</th>
+                <th>{{x.ProjW}}</th>
+                <th>{{x.ProjL}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 690px;">NL Wild Card</h1>
+        <table class="table">
+            <tr class="top-row">
+                <th>#</th>
+                <th>Team</th>
+                <th>W</th>
+                <th>L</th>
+                <th>W%</th>
+                <th>GB</th>
+                <th>Strk</th>
+                <th>Diff</th>
+                <th>Rf</th>
+                <th>Rf/G</th>
+                <th>Ra</th>
+                <th>Ra/G</th>
+                <th>Pyth W</th>
+                <th>Pyth L</th>
+                <th>Home W-L</th>
+                <th>Road W-L</th>
+                <th>W-L vs > .500</th>
+                <th>W-L vs < .500</th>
+                <th>Proj Rf</th>
+                <th>Proj Ra</th>
+                <th>Proj Diff</th>
+                <th>Proj W</th>
+                <th>Proj L</th>
+            </tr>
+            {% for x in nl_wildcard%}
+            <tr>
+                <th>{{forloop.counter}}</th>
+                <th><button class='table-button' onclick='load_team("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.W}}</th>
+                <th>{{x.L}}</th>
+                <th>{{x.WPercent}}</th>
+                <th>{{x.GB}}</th>
+                <th>{{x.Strk}}</th>
+                <th>{{x.Diff}}</th>
+                <th>{{x.Rf}}</th>
+                <th>{{x.RfG}}</th>
+                <th>{{x.Ra}}</th>
+                <th>{{x.RaG}}</th>
+                <th>{{x.PythW}}</th>
+                <th>{{x.PythL}}</th>
+                <th>{{x.HomeWL}}</th>
+                <th>{{x.RoadWL}}</th>
+                <th>{{x.Over500WL}}</th>
+                <th>{{x.Under500WL}}</th>
+                <th>{{x.ProjRf}}</th>
+                <th>{{x.ProjRa}}</th>
+                <th>{{x.ProjDiff}}</th>
+                <th>{{x.ProjW}}</th>
+                <th>{{x.ProjL}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <script>
+
+            var team_abbr = {'New York Yankees': 'NYY', 'Toronto Blue Jays': 'TOR', 'Baltimore Orioles': 'BAL', 'Tampa Bay Rays': 'TBR', 'Boston Red Sox': 'BOS', 'Cleveland Guardians': 'CLE', 'Chicago White Sox': 'CHW', 'Minnesota Twins': 'MIN', 
+            'Detroit Tigers': 'DET', 'Kansas City Royals': 'KCR', 'Houston Astros': 'HOU', 'Seattle Mariners': 'SEA', 'Los Angeles Angels': 'LAA', 'Texas Rangers': 'TEX', 'Oakland Athletics': 'OAK', 
+            'Atlanta Braves': 'ATL', 'New York Mets': 'NYM', 'Philadelphia Phillies': 'PHI', 'Miami Marlins': 'MIA', 'Washington Nationals': 'WSN', 'St. Louis Cardinals': 'STL', 'Milwaukee Brewers': 'MIL', 
+            'Chicago Cubs': 'CHC', 'Cincinnati Reds': 'CIN', 'Pittsburgh Pirates': 'PIT', 'Los Angeles Dodgers': 'LAD', 'San Diego Padres': 'SDP', 'San Francisco Giants': 'SFG', 'Arizona Diamondbacks': 'ARI', 
+            'Colorado Rockies': 'COL'};
+
+            var base_url = window.location.href.split('standings')[0];
+
+            function load_team(team) {
+                window.location.href = base_url + 'teams/team/?' + team_abbr[team];
+            }
+            
+            function change_page(new_page) {
+                window.location.href = base_url + new_page;
+            }
+        </script>
+    </body>
+</html>

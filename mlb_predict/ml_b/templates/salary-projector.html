@@ -1,0 +1,292 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Artificial Scout</title>
+        <style>
+            .top {
+                margin-left: 570px;
+            }
+            .top:hover {
+                cursor: pointer;
+            }
+            .title {
+                color: #00b4ff;
+                font-family: Tahoma, sans-serif;
+                font-size: 40px;
+            }
+            .title-img {
+                float: left;
+                margin-right: 10px;
+            }
+            .top-buttons .top-button {
+                background-color: #00b4ff;
+                background: #00b4ff;
+                color: white;
+                border: none;
+                padding: 15px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 25px;
+                float: left;
+                cursor: pointer;
+                transition-duration: 0.4s;
+                font-family: Tahoma, sans-serif;
+                margin-bottom: 15px;
+            }
+            .top-button:hover {
+                background-color: black;
+            }
+            .player-search {
+                margin-left:450px;
+                clear: both;
+                width: 660px;
+                height: 30px;
+            }
+            .plot {
+                width: 1060px;
+                height: 600px;
+                margin-left:250px;
+                clear: both;
+                margin-top: 15px;
+            }
+            .player-img {
+                margin-left: 250px;
+                height: 200px;
+                margin-top: 15px;
+                float: left;
+            }
+            .player-name {
+                font-family: Tahoma, sans-serif;
+                font-size: 30px;
+                margin-left: 700px;
+                margin-top: 15px;
+            }
+            .text {
+                font-family: Tahoma, sans-serif;
+                margin-left: 60px;
+                margin-top: 20px;
+                font-size: 15px;
+            }
+            .stat {
+                float: left;
+                margin-top: 10px;
+            }
+            .big-text {
+                font-family: Tahoma, sans-serif;
+                margin-left: 420px;
+                margin-top: 20px;
+                font-size: 20px;
+            }
+            .big-lower-text {
+                font-family: Tahoma, sans-serif;
+                margin-left: 450px;
+                margin-top: 20px;
+                font-size: 20px;
+            }
+            .top-row {
+                background-color: #00b4ff;
+                color: white;
+            }
+            .top-row:hover {
+                cursor: pointer;
+            }
+            .title-text {
+                font-style: Tahoma, sans-serif;
+                color: black;
+                margin-left: 650px;
+                font-size: 40px;
+                clear: both;
+            }
+            .table {
+                border-collapse: collapse;
+                font-family: Georgia, serif;
+                clear: both;
+                text-align: left;
+                width: 750px;
+                margin-left: 350px;
+            }
+            .table-button {
+                border: none;
+                background: white;
+                font-family: Georgia, serif;
+            }
+            .table-button:hover {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <script src="https://cdn.plot.ly/plotly-latest.min.js"></script>
+    <body>
+        <div class="top" id='top' onclick="change_page('')">
+            <img src="https://imgur.com/4TJ14y1.png" alt="Artificial Scout's Logo" width ='100' height="50" class='title-img'/>
+            <h1 class="title">Artificial Scout</h1>
+        </div>
+        <div class="top-buttons">
+            <button class="top-button" style="margin-left:450px; clear:both;"
+            onclick="change_page('players')">Players</button>
+            <button class="top-button" id='teams-button'
+            onclick="change_page('teams')">Teams</button>
+            <button class="top-button" id='leaders-button'
+            onclick="change_page('leaders')">Leaders</button>
+            <button class="top-button" id='standings-button'
+            onclick="change_page('standings')">Standings</button>
+            <button class="top-button" id='salary-button'
+            onclick="change_page('salaries')">Salary Projector</button>
+        </div>
+        <br><br><br><br><br>
+        <input style='margin-left:300px;' type='checkbox' id='x-axis-check' onclick='change_graph();'>Use Age
+        <div id="myPlot" class='plot'></div>
+        <button style='margin-left: 300px;' onclick='graph_3d();'>Load 3d Graph</button>
+        <div id="3dPlot" class='plot'></div>
+        <h1 class="division-text" style="margin-left: 675px;">Player Salaries</h1>
+        <table class="table">
+            <tr class="top-row">
+                <th>Name</th>
+                <th>Age</th>
+                <th>WAR</th>
+                <th>Salary</th>
+                <th>Projected Salary</th>
+            </tr>
+            {% for x in players %}
+            <tr>
+                <th><button class='table-button' onclick = 'load_player("{{x.Name}}");'>{{x.Name}}</button></th>
+                <th>{{x.Age}}</th>
+                <th>{{x.War}}</th>
+                <th>{{x.Salary}}</th>
+                <th>{{x.ProjSalary}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <script>
+            var war = [];
+            var salary = [];
+            var age = [];
+            var names = [];
+            var lineX = [];
+            var lineY = [];
+
+            function load_player(name) {
+                window.location.href = base_url + 'players/player/?' + name.replace(' ', '+');
+            }
+
+            function graph_3d() {
+                if (window.location.href.includes('3d')) {
+                    if (document.getElementById('x-axis-check').checked) {
+                        window.location.href = window.location.href.split('salaries')[0] + 'salaries/?age';
+                    }
+                    else {
+                        window.location.href = window.location.href.split('salaries')[0] + 'salaries/';
+                    }
+                }
+                else {
+                    if (document.getElementById('x-axis-check').checked) {
+                        window.location.href = window.location.href.split('salaries')[0] + 'salaries/?age,3d';
+                    }
+                    else {
+                        window.location.href = window.location.href.split('salaries')[0] + 'salaries/?3d';
+                    }
+                }
+            }
+
+            {% for x in players %}
+                war.push(parseFloat('{{x.War}}'));
+                salary.push(parseInt('{{x.Salary}}'));
+                age.push(parseFloat('{{x.Age}}'));
+                names.push('{{x.Name}}');
+            {% endfor %}
+
+            function change_graph() {
+                if (document.getElementById('x-axis-check').checked) {
+                    if (window.location.href.includes('3d')) {
+                        window.location.href = window.location.href.split('salaries')[0] + 'salaries/?age,3d';
+                    }
+                    else {
+                        window.location.href = window.location.href.split('salaries')[0] + 'salaries/?age';
+                    }
+                }
+                else {
+                    if (window.location.href.includes('3d')) {
+                        window.location.href = window.location.href.split('salaries')[0] + 'salaries/?3d';
+                    }
+                    else {
+                        window.location.href = window.location.href.split('salaries')[0] + 'salaries/';
+                    }
+                }
+            }
+
+            var data = [{
+                x: war,
+                y: salary,
+                mode:"markers+text",
+                type:"scatter",
+                text: names,
+                textposition: 'top center'
+            }];
+
+            var data2 = [{
+                x: age,
+                y: salary,
+                mode:"markers+text",
+                type:"scatter",
+                text: names,
+                textposition: 'top center'
+            }];
+
+            var data3d = [{
+                x: war,
+                y: salary,
+                z: age,
+                mode:"markers+text",
+                type:"scatter",
+                text: names,
+                textposition: 'top center',
+                type: 'scatter3d'
+            }];
+
+            var lineOfBestFit = [{
+                x: lineX,
+                y: lineY,
+                mode: "lines"
+            }];
+
+            var layout = {
+                xaxis: {type: 'log', autorange: true, title: "WAR"},
+                yaxis: {type: 'log', autorange: true, title: "AAV Salary Per Year"},
+                title: "Salary Projections"
+            };
+
+            var layout2 = {
+                xaxis: {autorange: true, title: "Age"},
+                yaxis: {type: 'log', autorange: true, title: "AAV Salary Per Year"},
+                title: "Salary Projections"
+            };
+
+            var layout3d = {
+                scene: {
+                    xaxis: {type: 'log', autorange: true,title: "WAR"},
+                    yaxis: {type: 'log', autorange: true,title: "AAV Salary Per Year"},
+                    zaxis: {autorange: true, title: "Age"},
+                },
+                title: "Salary Projections"
+            };
+
+            if (window.location.href.includes('age')) {
+                Plotly.newPlot("myPlot", data2, layout2);
+                document.getElementById('x-axis-check').checked = true;
+            }
+            else {
+                Plotly.newPlot("myPlot", data, layout);
+            }
+
+            if (window.location.href.includes('3d')) {
+                Plotly.newPlot("3dPlot", data3d, layout3d);
+            }
+            var base_url = window.location.href.split('salaries')[0];
+                
+            function change_page(new_page) {
+                window.location.href = base_url + new_page;
+            }
+        </script>
+    </body>
+</html>

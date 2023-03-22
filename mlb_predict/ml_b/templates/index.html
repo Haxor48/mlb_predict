@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Artificial Scout</title>
+        <style>
+            .top {
+                margin-left: 570px;
+            }
+            .top:hover {
+                cursor: pointer;
+            }
+            .title {
+                color: #00b4ff;
+                font-family: Tahoma, sans-serif;
+                font-size: 40px;
+            }
+            .title-img {
+                float: left;
+                margin-right: 10px;
+            }
+            .top-buttons .top-button {
+                background-color: #00b4ff;
+                background: #00b4ff;
+                color: white;
+                border: none;
+                padding: 15px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 25px;
+                float: left;
+                cursor: pointer;
+                transition-duration: 0.4s;
+                font-family: Tahoma, sans-serif;
+            }
+            .top-button:hover {
+                background-color: black;
+            }
+            .header {
+                background-color: #00b4ff;
+                color: white;
+                border: none;
+                font-family: Tahoma, sans-serif;
+                font-size: 30px;
+                padding: 20px 40px;
+                width: 420px;
+                text-align: center;
+            }
+            .header:hover {
+                cursor: pointer;
+            }
+            .section {
+                float: left;
+                border: 1px solid black;
+                margin-top: 10px;
+            }
+            .table {
+                font-family: Georgia, serif;
+                width: 420px;
+                text-align: left;
+                border-collapse: collapse;
+            }
+            td, th {
+                border: 1px solid black;
+            }
+            .table-button {
+                border: none;
+                background: white;
+                font-family: Georgia, serif;
+            }
+            .table-button:hover {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="top" id='top' onclick="change_page('')">
+            <img src="https://imgur.com/4TJ14y1.png" alt="Artificial Scout's Logo" width ='100' height="50" class='title-img'/>
+            <h1 class="title">Artificial Scout</h1>
+        </div>
+        <div class="top-buttons">
+            <button class="top-button" style="margin-left:450px; clear:both;"
+            onclick="change_page('players')">Players</button>
+            <button class="top-button" id='teams-button'
+            onclick="change_page('teams')">Teams</button>
+            <button class="top-button" id='leaders-button'
+            onclick="change_page('leaders')">Leaders</button>
+            <button class="top-button" id='standings-button'
+            onclick="change_page('standings')">Standings</button>
+            <button class="top-button" id='salary-button'
+            onclick="change_page('salaries')">Salary Projector</button>
+        </div>
+        <div class="section" style="clear:both; margin-left: 5px; float: left;">
+            <h1 id='hitting-leaders-title' class="header" onclick="change_page('leaders/hitting')">Hitting Leaders</h1>
+            <table class="table" id="hitting-leaders-table">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Team</th>
+                    <th>G</th>
+                    <th>AVG</th>
+                    <th>OBP</th>
+                    <th>SLG</th>
+                    <th>OPS</th>
+                    <th>wOBA</th>
+                    <th>WRC+</th>
+                    <th>fWAR</th>
+                    <th>bWAR</th>
+                </tr>
+                {% for x in hitting_leaders %}
+                    <tr>
+                        <th>{{forloop.counter}}</th>
+                        <th><button class='table-button' onclick = 'load_player("{{x.Name}}");'>{{x.Name }}</button></th>
+                        <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team }}</button></th>
+                        <th>{{x.G }}</th>
+                        <th>{{x.AVG }}</th>
+                        <th>{{x.OBP }}</th>
+                        <th>{{x.SLG }}</th>
+                        <th>{{x.OPS }}</th>
+                        <th>{{x.wOBA }}</th>
+                        <th>{{x.wRC }}</th>
+                        <th>{{x.fWAR }}</th>
+                        <th>{{x.bWAR }}</th>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="section" style="margin-left: 10px; float: left;">
+            <h1 id='pitching-leaders-title' class="header" onclick="change_page('leaders/pitching')">Pitching Leaders</h1>
+            <table class="table" id="standings-table">
+                <tr>
+                    <th>#</th>
+                    <th>Name</th>
+                    <th>Team</th>
+                    <th>G</th>
+                    <th>IP</th>
+                    <th>ERA</th>
+                    <th>WHIP</th>
+                    <th>K/9</th>
+                    <th>K/BB</th>
+                    <th>FIP</th>
+                    <th>SIERA</th>
+                    <th>fWAR</th>
+                    <th>bWAR</th>
+                </tr>
+                {% for x in pitching_leaders %}
+                    <tr>
+                        <th>{{forloop.counter}}</th>
+                        <th><button class='table-button' onclick = 'load_player("{{x.Name}}");'>{{x.Name }}</button></th>
+                        <th><button class='table-button' onclick='load_team_abbr("{{x.Team}}");'>{{x.Team }}</button></th>
+                        <th>{{x.G }}</th>
+                        <th>{{x.IP }}</th>
+                        <th>{{x.ERA }}</th>
+                        <th>{{x.WHIP }}</th>
+                        <th>{{x.K9 }}</th>
+                        <th>{{x.KBB }}</th>
+                        <th>{{x.FIP }}</th>
+                        <th>{{x.SIERA }}</th>
+                        <th>{{x.fWAR }}</th>
+                        <th>{{x.bWAR }}</th>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="section" style="margin-left: 10px;">
+            <h1 id='standings-title' class="header" onclick="change_page('standings')">Standings</h1>
+            <table class="table" id="pitching-leaders-table">
+                <tr>
+                    <th>#</th>
+                    <th>Team</th>
+                    <th>W</th>
+                    <th>L</th>
+                    <th>W%</th>
+                    <th>GB</th>
+                    <th>Strk</th>
+                    <th>Rf</th>
+                    <th>Ra</th>
+                    <th>Diff</th>
+                    <th>Pyth W-L</th>
+                </tr>
+                <tr>
+                    <th>AL East</th>
+                </tr>
+                {% for x in al_east %}
+                    <tr>
+                        <th>{{forloop.counter}}</th>
+                        <th><button class='table-button' onclick='load_team("{{x.Name}}");'>{{x.Name}}</button></th>
+                        <th>{{x.W}}</th>
+                        <th>{{x.L}}</th>
+                        <th>{{x.WPer}}</th>
+                        <th>{{x.GB}}</th>
+                        <th>{{x.Streak}}</th>
+                        <th>{{x.RunsF}}</th>
+                        <th>{{x.RunsA}}</th>
+                        <th>{{x.Diff}}</th>
+                        <th>{{x.Pyth}}</th>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <th>AL Central</th>
+                </tr>
+                {% for x in al_central %}
+                    <tr>
+                        <th>{{forloop.counter}}</th>
+                        <th><button class='table-button' onclick='load_team("{{x.Name}}");'>{{x.Name}}</button></th>
+                        <th>{{x.W}}</th>
+                        <th>{{x.L}}</th>
+                        <th>{{x.WPer}}</th>
+                        <th>{{x.GB}}</th>
+                        <th>{{x.Streak}}</th>
+                        <th>{{x.RunsF}}</th>
+                        <th>{{x.RunsA}}</th>
+                        <th>{{x.Diff}}</th>
+                        <th>{{x.Pyth}}</th>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <th>AL West</th>
+                </tr>
+                {% for x in al_west %}
+                    <tr>
+                        <th>{{forloop.counter}}</th>
+                        <th><button class='table-button' onclick='load_team("{{x.Name}}");'>{{x.Name}}</button></th>
+                        <th>{{x.W}}</th>
+                        <th>{{x.L}}</th>
+                        <th>{{x.WPer}}</th>
+                        <th>{{x.GB}}</th>
+                        <th>{{x.Streak}}</th>
+                        <th>{{x.RunsF}}</th>
+                        <th>{{x.RunsA}}</th>
+                        <th>{{x.Diff}}</th>
+                        <th>{{x.Pyth}}</th>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <th>NL East</th>
+                </tr>
+                {% for x in nl_east %}
+                    <tr>
+                        <th>{{forloop.counter}}</th>
+                        <th><button class='table-button' onclick='load_team("{{x.Name}}");'>{{x.Name}}</button></th>
+                        <th>{{x.W}}</th>
+                        <th>{{x.L}}</th>
+                        <th>{{x.WPer}}</th>
+                        <th>{{x.GB}}</th>
+                        <th>{{x.Streak}}</th>
+                        <th>{{x.RunsF}}</th>
+                        <th>{{x.RunsA}}</th>
+                        <th>{{x.Diff}}</th>
+                        <th>{{x.Pyth}}</th>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <th>NL Central</th>
+                </tr>
+                {% for x in nl_central %}
+                    <tr>
+                        <th>{{forloop.counter}}</th>
+                        <th><button class='table-button' onclick='load_team("{{x.Name}}");'>{{x.Name}}</button></th>
+                        <th>{{x.W}}</th>
+                        <th>{{x.L}}</th>
+                        <th>{{x.WPer}}</th>
+                        <th>{{x.GB}}</th>
+                        <th>{{x.Streak}}</th>
+                        <th>{{x.RunsF}}</th>
+                        <th>{{x.RunsA}}</th>
+                        <th>{{x.Diff}}</th>
+                        <th>{{x.Pyth}}</th>
+                    </tr>
+                {% endfor %}
+                <tr>
+                    <th>NL West</th>
+                </tr>
+                {% for x in nl_west %}
+                    <tr>
+                        <th>{{forloop.counter}}</th>
+                        <th><button class='table-button' onclick='load_team("{{x.Name}}");'>{{x.Name}}</button></th>
+                        <th>{{x.W}}</th>
+                        <th>{{x.L}}</th>
+                        <th>{{x.WPer}}</th>
+                        <th>{{x.GB}}</th>
+                        <th>{{x.Streak}}</th>
+                        <th>{{x.RunsF}}</th>
+                        <th>{{x.RunsA}}</th>
+                        <th>{{x.Diff}}</th>
+                        <th>{{x.Pyth}}</th>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <script>
+            var base_url = window.location.href;
+
+            var team_abbr = {'New York Yankees': 'NYY', 'Toronto Blue Jays': 'TOR', 'Baltimore Orioles': 'BAL', 'Tampa Bay Rays': 'TBR', 'Boston Red Sox': 'BOS', 'Cleveland Guardians': 'CLE', 'Chicago White Sox': 'CHW', 'Minnesota Twins': 'MIN', 
+            'Detroit Tigers': 'DET', 'Kansas City Royals': 'KCR', 'Houston Astros': 'HOU', 'Seattle Mariners': 'SEA', 'Los Angeles Angels': 'LAA', 'Texas Rangers': 'TEX', 'Oakland Athletics': 'OAK', 
+            'Atlanta Braves': 'ATL', 'New York Mets': 'NYM', 'Philadelphia Phillies': 'PHI', 'Miami Marlins': 'MIA', 'Washington Nationals': 'WSN', 'St. Louis Cardinals': 'STL', 'Milwaukee Brewers': 'MIL', 
+            'Chicago Cubs': 'CHC', 'Cincinnati Reds': 'CIN', 'Pittsburgh Pirates': 'PIT', 'Los Angeles Dodgers': 'LAD', 'San Diego Padres': 'SDP', 'San Francisco Giants': 'SFG', 'Arizona Diamondbacks': 'ARI', 
+            'Colorado Rockies': 'COL'};
+
+            function load_player(name) {
+                window.location.href = base_url + 'players/player/?' + name.replace(' ', '+');
+            }
+
+            function load_team(team) {
+                window.location.href = base_url + 'teams/team/?' + team_abbr[team];
+            }
+
+            function load_team_abbr(team) {
+                window.location.href = base_url + 'teams/team/?' + team;
+            }
+            
+            function change_page(new_page) {
+                window.location.href = base_url + new_page;
+            }
+        </script>
+    </body>
+</html>

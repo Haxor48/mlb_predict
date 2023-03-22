@@ -1,0 +1,146 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <title>Artificial Scout</title>
+        <style>
+            .top {
+                margin-left: 570px;
+            }
+            .top:hover {
+                cursor: pointer;
+            }
+            .title {
+                color: #00b4ff;
+                font-family: Tahoma, sans-serif;
+                font-size: 40px;
+            }
+            .title-img {
+                float: left;
+                margin-right: 10px;
+            }
+            .top-buttons .top-button {
+                background-color: #00b4ff;
+                background: #00b4ff;
+                color: white;
+                border: none;
+                padding: 15px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 25px;
+                float: left;
+                cursor: pointer;
+                transition-duration: 0.4s;
+                font-family: Tahoma, sans-serif;
+            }
+            .top-button:hover {
+                background-color: black;
+            }
+            .header {
+                background-color: #00b4ff;
+                color: white;
+                border: none;
+                font-family: Tahoma, sans-serif;
+                font-size: 30px;
+                padding: 20px 40px;
+                width: 420px;
+                text-align: center;
+            }
+            .header:hover {
+                cursor: pointer;
+            }
+            .section {
+                float: left;
+                border: 1px solid black;
+                margin-top: 10px;
+            }
+            .table {
+                font-family: Georgia, serif;
+                width: 420px;
+                text-align: left;
+                border-collapse: collapse;
+            }
+            td, th {
+                border: 1px solid black;
+            }
+            .player-search {
+                width: 550px;
+                margin-left: 500px;
+                height: 40px;
+                margin-top: 30px;
+            }
+            .top-row {
+                background-color: #00b4ff;
+                color: white;
+            }
+            .top-row:hover {
+                cursor: pointer;
+            }
+            .title-text {
+                font-style: Tahoma, sans-serif;
+                color: black;
+                margin-left: 650px;
+                font-size: 40px;
+                clear: both;
+            }
+            .table-button {
+                border: none;
+                background: white;
+                font-family: Georgia, serif;
+            }
+            .table-button:hover {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="top" id='top' onclick="change_page('')">
+            <img src="https://imgur.com/4TJ14y1.png" alt="Artificial Scout's Logo" width ='100' height="50" class='title-img'/>
+            <h1 class="title">Artificial Scout</h1>
+        </div>
+        <div class="top-buttons">
+            <button class="top-button" style="margin-left:450px; clear:both;"
+            onclick="change_page('players')">Players</button>
+            <button class="top-button" id='teams-button'
+            onclick="change_page('teams')">Teams</button>
+            <button class="top-button" id='leaders-button'
+            onclick="change_page('leaders')">Leaders</button>
+            <button class="top-button" id='standings-button'
+            onclick="change_page('standings')">Standings</button>
+            <button class="top-button" id='salary-button'
+            onclick="change_page('salaries')">Salary Projector</button>
+        </div>
+        <h1 class="division-text" style="margin-left: 675px;">Players</h1>
+        <table class="table" style='margin-left: 550px;'>
+            <tr class="top-row">
+                <th>Name</th>
+                <th>Team</th>
+                <th>Pos</th>
+                <th>Age</th>
+            </tr>
+            {% for x in players %}
+            <tr>
+                <th><button class='table-button' onclick = 'load_player("{{x.Name}}");'>{{x.Name}}</button></th>
+                <th><button class='table-button' onclick='load_team("{{x.Team}}");'>{{x.Team}}</button></th>
+                <th>{{x.Pos}}</th>
+                <th>{{x.Age}}</th>
+            </tr>
+            {% endfor %}
+        </table>
+        <script>
+            var base_url = window.location.href.split('players')[0];
+
+            function load_team(team) {
+                window.location.href = base_url + 'teams/team/?' + team;
+            }
+
+            function load_player(name) {
+                window.location.href = base_url + 'players/player/?' + name.replace(' ', '+');
+            }
+            
+            function change_page(new_page) {
+                window.location.href = base_url + new_page;
+            }
+        </script>
+    </body>
+</html>

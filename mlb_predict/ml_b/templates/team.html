@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Artificial Scout</title>
+        <style>
+            .top {
+                margin-left: 570px;
+            }
+            .top:hover {
+                cursor: pointer;
+            }
+            .title {
+                color: #00b4ff;
+                font-family: Tahoma, sans-serif;
+                font-size: 40px;
+            }
+            .title-img {
+                float: left;
+                margin-right: 10px;
+            }
+            .top-buttons .top-button {
+                background-color: #00b4ff;
+                background: #00b4ff;
+                color: white;
+                border: none;
+                padding: 15px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 25px;
+                float: left;
+                cursor: pointer;
+                transition-duration: 0.4s;
+                font-family: Tahoma, sans-serif;
+                margin-bottom: 15px;
+            }
+            .top-button:hover {
+                background-color: black;
+            }
+            .league-text {
+                font-family: Tahoma, sans-serif;
+                color: black;
+                font-size: 40px;
+            }
+            .team-img {
+                margin-left: 350px;
+                height: 200px;
+                margin-top: 15px;
+                float: left;
+            }
+            .team-name {
+                font-family: Tahoma, sans-serif;
+                font-size: 40px;
+                margin-left: 630px;
+                margin-top: 15px;
+            }
+            .record-text {
+                font-family: Tahoma, sans-serif;
+                font-size: 20px;
+                margin-left: 80px;
+                margin-top: 10px;
+            }
+            .proj-record-text {
+                font-family: Tahoma, sans-serif;
+                font-size: 20px;
+                margin-left: 34px;
+                margin-top: 10px;
+            }
+            .record-group {
+                float: left;
+                margin-top: 10px;
+            }
+            td, th {
+                border: 1px solid black;
+            }
+            th {
+                width: 520px;
+            }
+            .top-row {
+                background-color: #00b4ff;
+                color: white;
+            }
+            .table-title {
+                font-family: Tahoma, sans-serif;
+                font-size: 20px;
+                margin-left: 55px;
+            }
+            .table-group {
+                float: left;
+                margin-left: 100px;
+            }
+            .smaller-table {
+                border-collapse: collapse;
+                font-family: Georgia, serif;
+                text-align: left;
+                width: 180px;
+            }
+            .smaller-table-title {
+                font-family: Tahoma, sans-serif;
+                font-size: 20px;
+                margin-left: 70px;
+            }
+            .smaller-table-group {
+                float: left;
+                margin-left: 50px;
+            }
+            .big-table {
+                border-collapse: collapse;
+                font-family: Georgia, serif;
+                clear: both;
+                text-align: left;
+                width: 1530px;
+            }
+            .big-title-text {
+                font-style: Tahoma, sans-serif;
+                color: black;
+                font-size: 30px;
+                margin-left: 675px;
+                clear: both;
+            }
+            .table {
+                border-collapse: collapse;
+                font-family: Georgia, serif;
+                clear: both;
+                text-align: left;
+                width: 1530px;
+            }
+            .division-text {
+                font-style: Tahoma, sans-serif;
+                color: black;
+                font-size: 30px;
+            }
+            .top-row:hover {
+                cursor: pointer;
+            }
+            .title-text {
+                font-style: Tahoma, sans-serif;
+                color: black;
+                margin-left: 650px;
+                font-size: 40px;
+                clear: both;
+            }
+            .table-button {
+                border: none;
+                background: white;
+                font-family: Georgia, serif;
+            }
+            .table-button:hover {
+                cursor: pointer;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="top" id='top' onclick="change_page('')">
+            <img src="https://imgur.com/4TJ14y1.png" alt="Artificial Scout's Logo" width ='100' height="50" class='title-img'/>
+            <h1 class="title">Artificial Scout</h1>
+        </div>
+        <div class="top-buttons">
+            <button class="top-button" style="margin-left:450px; clear:both;"
+            onclick="change_page('players')">Players</button>
+            <button class="top-button" id='teams-button'
+            onclick="change_page('teams')">Teams</button>
+            <button class="top-button" id='leaders-button'
+            onclick="change_page('leaders')">Leaders</button>
+            <button class="top-button" id='standings-button'
+            onclick="change_page('standings')">Standings</button>
+            <button class="top-button" id='salary-button'
+            onclick="change_page('salaries')">Salary Projector</button>
+        </div>
+        <br><br><br><br>
+        <img src = {{info.Img}} class="team-img">
+        <div>
+            <h1 class="team-name">{{info.Team}}</h1>
+            <div class="record-group">
+                <a class="record-text">Current Record</a><br>
+                <a class="record-text">{{info.WL}}</a>
+            </div>
+            <div class="record-group">
+                <a class="record-text">Last Year's Record</a><br>
+                <a class="record-text">{{info.LastYrWL}}</a>
+            </div><br><br><br><br>
+            <div class="record-group">
+                <a class="record-text">Pythagorean Record</a><br>
+                <a class="record-text">{{info.PythWL}}</a>
+            </div>
+            <div class="record-group">
+                <a class="proj-record-text">Projected Record</a><br>
+                <a class="proj-record-text">{{info.ProjWL}}</a>
+            </div>
+        </div>
+        <h1 class="title-text">Team Stats</h1>
+        <h1 class="division-text" style="margin-left: 675px;">Team Hitting</h1>
+        <table class="table">
+            <tr class="top-row">
+                <th>Team</th>
+                <th>Year</th>
+                <th>H</th>
+                <th>HR</th>
+                <th>R</th>
+                <th>RBI</th>
+                <th>SB</th>
+                <th>BB</th>
+                <th>AVG</th>
+                <th>OBP</th>
+                <th>SLG</th>
+                <th>OPS</th>
+                <th>WRC+</th>
+                <th>wOBA</th>
+            </tr>
+            {% for x in team_hitting%}
+                <tr>
+                    <th>{{x.Team}}</th>
+                    <th>{{x.Year}}</th>
+                    <th>{{x.H}}</th>
+                    <th>{{x.HR}}</th>
+                    <th>{{x.R}}</th>
+                    <th>{{x.RBI}}</th>
+                    <th>{{x.SB}}</th>
+                    <th>{{x.BB}}</th>
+                    <th>{{x.AVG}}</th>
+                    <th>{{x.OBP}}</th>
+                    <th>{{x.SLG}}</th>
+                    <th>{{x.OPS}}</th>
+                    <th>{{x.wRC}}</th>
+                    <th>{{x.wOBA}}</th>
+                </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 675px;">Team Pitching</h1>
+        <table class="table">
+            <tr class="top-row">
+                <th>Team</th>
+                <th>Year</th>
+                <th>K</th>
+                <th>BB</th>
+                <th>K/9</th>
+                <th>BB/9</th>
+                <th>HR/9</th>
+                <th>K/BB</th>
+                <th>AVG</th>
+                <th>WHIP</th>
+                <th>RS/9</th>
+                <th>ERA</th>
+                <th>FIP</th>
+                <th>xFIP</th>
+                <th>SIERA</th>
+            </tr>
+            {% for x in team_pitching%}
+                <tr>
+                    <th>{{x.Team}}</th>
+                    <th>{{x.Year}}</th>
+                    <th>{{x.K}}</th>
+                    <th>{{x.BB}}</th>
+                    <th>{{x.K9}}</th>
+                    <th>{{x.BB9}}</th>
+                    <th>{{x.HR9}}</th>
+                    <th>{{x.KBB}}</th>
+                    <th>{{x.AVG}}</th>
+                    <th>{{x.WHIP}}</th>
+                    <th>{{x.RS9}}</th>
+                    <th>{{x.ERA}}</th>
+                    <th>{{x.FIP}}</th>
+                    <th>{{x.xFIP}}</th>
+                    <th>{{x.SIERA}}</th>
+                </tr>
+            {% endfor %}
+        </table>
+        <h1 class="title-text">Team Leaders</h1>
+        <h1 class="division-text" style="margin-left: 675px;">Hitting Leaders</h1>
+        <table class="table">
+            <tr class="top-row">
+                <th>Name</th>
+                <th>Team</th>
+                <th>Pos</th>
+                <th>G</th>
+                <th>PA</th>
+                <th>H</th>
+                <th>HR</th>
+                <th>R</th>
+                <th>RBI</th>
+                <th>SB</th>
+                <th>BB</th>
+                <th>AVG</th>
+                <th>OBP</th>
+                <th>SLG</th>
+                <th>OPS</th>
+                <th>WRC+</th>
+                <th>wOBA</th>
+                <th>Offensive Runs</th>
+                <th>fWAR</th>
+                <th>bWAR</th>
+                <th>aWAR</th>
+                <th>WPA</th>
+            </tr>
+            {% for x in hitting_leaders%}
+                <tr>
+                    <th><button class='table-button' onclick = 'load_player("{{x.Name}}");'>{{x.Name}}</button></th>
+                    <th>{{x.Team}}</th>
+                    <th>{{x.Pos}}</th>
+                    <th>{{x.G}}</th>
+                    <th>{{x.PA}}</th>
+                    <th>{{x.H}}</th>
+                    <th>{{x.HR}}</th>
+                    <th>{{x.R}}</th>
+                    <th>{{x.RBI}}</th>
+                    <th>{{x.SB}}</th>
+                    <th>{{x.BB}}</th>
+                    <th>{{x.AVG}}</th>
+                    <th>{{x.OBP}}</th>
+                    <th>{{x.SLG}}</th>
+                    <th>{{x.OPS}}</th>
+                    <th>{{x.wRC}}</th>
+                    <th>{{x.wOBA}}</th>
+                    <th>{{x.OFF}}</th>
+                    <th>{{x.fWAR}}</th>
+                    <th>{{x.bWAR}}</th>
+                    <th>{{x.aWAR}}</th>
+                    <th>{{x.WPA}}</th>
+                </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 675px;">Pitching Leaders</h1>
+        <table class="table">
+            <tr class="top-row">
+                <th>Name</th>
+                <th>Team</th>
+                <th>G</th>
+                <th>GS</th>
+                <th>IP</th>
+                <th>K</th>
+                <th>BB</th>
+                <th>K/9</th>
+                <th>BB/9</th>
+                <th>HR/9</th>
+                <th>K/BB</th>
+                <th>AVG</th>
+                <th>WHIP</th>
+                <th>RS/9</th>
+                <th>ERA</th>
+                <th>FIP</th>
+                <th>xFIP</th>
+                <th>SIERA</th>
+                <th>fWAR</th>
+                <th>bWAR</th>
+                <th>aWAR</th>
+                <th>WPA</th>
+            </tr>
+            {% for x in pitching_leaders%}
+                <tr>
+                    <th><button class='table-button' onclick = 'load_player("{{x.Name}}");'>{{x.Name}}</button></th>
+                    <th>{{x.Team}}</th>
+                    <th>{{x.G}}</th>
+                    <th>{{x.GS}}</th>
+                    <th>{{x.IP}}</th>
+                    <th>{{x.K}}</th>
+                    <th>{{x.BB}}</th>
+                    <th>{{x.K9}}</th>
+                    <th>{{x.BB9}}</th>
+                    <th>{{x.HR9}}</th>
+                    <th>{{x.KBB}}</th>
+                    <th>{{x.AVG}}</th>
+                    <th>{{x.WHIP}}</th>
+                    <th>{{x.RS9}}</th>
+                    <th>{{x.ERA}}</th>
+                    <th>{{x.FIP}}</th>
+                    <th>{{x.xFIP}}</th>
+                    <th>{{x.SIERA}}</th>
+                    <th>{{x.fWAR}}</th>
+                    <th>{{x.bWAR}}</th>
+                    <th>{{x.aWAR}}</th>
+                    <th>{{x.WPA}}</th>
+                </tr>
+            {% endfor %}
+        </table>
+        <h1 class="division-text" style="margin-left: 600px;">Fielding/Running Leaders</h1>
+        <table class="table">
+            <tr class="top-row">
+                <th>Name</th>
+                <th>Team</th>
+                <th>Pos</th>
+                <th>G</th>
+                <th>GS</th>
+                <th>IP</th>
+                <th>PO</th>
+                <th>A</th>
+                <th>DP</th>
+                <th>E</th>
+                <th>ARM</th>
+                <th>UZR</th>
+                <th>DRS</th>
+                <th>OAA</th>
+                <th>FRM</th>
+                <th>Defensive Runs</th>
+                <th>R</th>
+                <th>SB</th>
+                <th>CS</th>
+                <th>BsR</th>
+            </tr>
+            {% for x in fielding_leaders%}
+                <tr>
+                    <th><button class='table-button' onclick = 'load_player("{{x.Name}}");'>{{x.Name}}</button></th>
+                    <th>{{x.Team}}</th>
+                    <th>{{x.Pos}}</th>
+                    <th>{{x.G}}</th>
+                    <th>{{x.GS}}</th>
+                    <th>{{x.IP}}</th>
+                    <th>{{x.PO}}</th>
+                    <th>{{x.A}}</th>
+                    <th>{{x.DP}}</th>
+                    <th>{{x.E}}</th>
+                    <th>{{x.ARM}}</th>
+                    <th>{{x.UZR}}</th>
+                    <th>{{x.DRS}}</th>
+                    <th>{{x.OAA}}</th>
+                    <th>{{x.FRM}}</th>
+                    <th>{{x.DEF}}</th>
+                    <th>{{x.R}}</th>
+                    <th>{{x.SB}}</th>
+                    <th>{{x.CS}}</th>
+                    <th>{{x.BsR}}</th>
+                </tr>
+            {% endfor %}
+        </table>
+        <script>
+            var base_url = window.location.href.split('teams')[0];
+
+            function load_player(name) {
+                window.location.href = base_url + 'players/player/?' + name.replace(' ', '+');
+            }
+            
+            function change_page(new_page) {
+                window.location.href = base_url + new_page;
+            }
+        </script>
+    </body>
+</html>
